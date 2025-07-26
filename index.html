@@ -30,6 +30,9 @@
             color: var(--dark);
             overflow-x: hidden;
             background: var(--dark);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            touch-action: manipulation;
         }
         
         /* Animated Background */
@@ -180,6 +183,9 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            min-height: 44px;
+            min-width: 44px;
+            touch-action: manipulation;
         }
         
         .cta-button::before {
@@ -845,58 +851,284 @@
             transform: translateY(-3px);
         }
         
-        /* Responsive Design */
+        /* Mobile-first responsive design */
         @media (max-width: 768px) {
             .nav {
-                position: static;
+                position: fixed;
+                top: 15px;
+                left: 15px;
+                right: 15px;
+                flex-wrap: wrap;
                 justify-content: center;
-                padding: 20px;
+                gap: 4px;
+                padding: 6px;
+            }
+            
+            .nav-item {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+                flex: 1;
+                text-align: center;
+                min-width: auto;
+            }
+            
+            .hero {
+                padding-top: 80px;
+                min-height: 90vh;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+                margin-bottom: 15px;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+                margin-bottom: 25px;
+                padding: 0 10px;
+            }
+            
+            .section {
+                padding: 60px 15px;
+            }
+            
+            .glass-card {
+                padding: 25px 20px;
+                margin: 30px 0;
             }
             
             .gif-section {
                 flex-direction: column;
+                gap: 30px;
                 text-align: center;
             }
             
-            .timeline::before {
-                left: 20px;
+            .gif-container {
+                order: -1;
             }
             
+            .real-gif {
+                width: 100%;
+                max-width: 280px;
+                height: 180px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .skill-card {
+                padding: 20px;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .blog-card {
+                margin: 0;
+            }
+            
+            .blog-image {
+                height: 150px;
+            }
+            
+            .blog-content {
+                padding: 20px;
+            }
+            
+            .blog-meta {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
+            }
+            
+            /* Mobile timeline fixes */
             .professional-timeline::before {
-                left: 30px;
+                left: 20px;
+                width: 2px;
             }
             
             .timeline-item {
-                width: calc(100% - 80px);
-                left: 80px !important;
+                width: calc(100% - 60px);
+                left: 60px !important;
                 text-align: left !important;
+                margin: 40px 0;
             }
             
             .timeline-item::before {
-                left: -70px !important;
+                left: -50px !important;
+                width: 16px;
+                height: 16px;
+                top: 25px;
+            }
+            
+            .timeline-content {
+                padding: 20px;
             }
             
             .company-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
+                flex-direction: row;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+            
+            .company-logo {
+                width: 40px;
+                height: 40px;
+                font-size: 0.8rem;
+                flex-shrink: 0;
+            }
+            
+            .company-info h3 {
+                font-size: 1.1rem;
+                line-height: 1.3;
+            }
+            
+            .duration {
+                font-size: 0.8rem;
+            }
+            
+            .role-item {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .role-item h4 {
+                font-size: 1rem;
+                line-height: 1.3;
+            }
+            
+            .role-duration, .location {
+                font-size: 0.8rem;
+            }
+            
+            .role-description {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            
+            .achievements {
+                padding-left: 15px;
+            }
+            
+            .achievements li {
+                font-size: 0.85rem;
+                margin-bottom: 6px;
             }
             
             .skills-tags {
-                justify-content: flex-start;
+                gap: 6px;
+                margin-top: 10px;
+            }
+            
+            .skill-tag {
+                font-size: 0.7rem;
+                padding: 3px 8px;
             }
             
             .contact-links {
                 flex-direction: column;
                 align-items: center;
+                gap: 15px;
             }
             
-            .skills-grid {
-                grid-template-columns: 1fr;
+            .contact-link {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
             }
             
-            .blog-grid {
-                grid-template-columns: 1fr;
+            /* Particle adjustments for mobile */
+            .particles {
+                display: none;
+            }
+            
+            /* Text adjustments */
+            .section h2 {
+                font-size: 2.2rem;
+                margin-bottom: 25px;
+            }
+            
+            .section h2::after {
+                width: 60px;
+            }
+        }
+        
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            .nav {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                gap: 2px;
+                padding: 4px;
+            }
+            
+            .nav-item {
+                padding: 6px 8px;
+                font-size: 0.75rem;
+            }
+            
+            .hero {
+                padding-top: 70px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section {
+                padding: 40px 10px;
+            }
+            
+            .glass-card {
+                padding: 20px 15px;
+            }
+            
+            .real-gif {
+                max-width: 250px;
+                height: 160px;
+            }
+            
+            .timeline-item {
+                width: calc(100% - 50px);
+                left: 50px !important;
+            }
+            
+            .timeline-item::before {
+                left: -40px !important;
+                width: 14px;
+                height: 14px;
+            }
+            
+            .professional-timeline::before {
+                left: 15px;
+            }
+            
+            .company-header {
+                gap: 10px;
+            }
+            
+            .company-logo {
+                width: 35px;
+                height: 35px;
+                font-size: 0.7rem;
+            }
+            
+            .company-info h3 {
+                font-size: 1rem;
+            }
+            
+            .section h2 {
+                font-size: 1.8rem;
             }
         }
         
@@ -1301,7 +1533,9 @@
         // Create floating particles
         function createParticles() {
             const particles = document.getElementById('particles');
-            for (let i = 0; i < 50; i++) {
+            const particleCount = window.innerWidth <= 768 ? 20 : 50; // Fewer particles on mobile
+            
+            for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
@@ -1371,18 +1605,46 @@
         // Initialize particles
         createParticles();
         
-        // Add mouse movement parallax effect
-        document.addEventListener('mousemove', (e) => {
+        // Mobile-specific optimizations
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+            // Reduce particle count on mobile
             const particles = document.querySelectorAll('.particle');
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            
             particles.forEach((particle, index) => {
-                const speed = (index % 5 + 1) * 0.5;
-                const xPos = (x - 0.5) * speed;
-                const yPos = (y - 0.5) * speed;
-                particle.style.transform = `translate(${xPos}px, ${yPos}px)`;
+                if (index > 20) { // Keep only 20 particles on mobile
+                    particle.remove();
+                }
             });
+            
+            // Disable mouse parallax on mobile
+            document.removeEventListener('mousemove', handleMouseMove);
+        }
+        
+        // Add mouse movement parallax effect (desktop only)
+        function handleMouseMove(e) {
+            if (window.innerWidth > 768) {
+                const particles = document.querySelectorAll('.particle');
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                particles.forEach((particle, index) => {
+                    const speed = (index % 5 + 1) * 0.5;
+                    const xPos = (x - 0.5) * speed;
+                    const yPos = (y - 0.5) * speed;
+                    particle.style.transform = `translate(${xPos}px, ${yPos}px)`;
+                });
+            }
+        }
+        
+        document.addEventListener('mousemove', handleMouseMove);
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            const newIsMobile = window.innerWidth <= 768;
+            if (newIsMobile !== isMobile) {
+                location.reload(); // Reload to apply mobile optimizations
+            }
         });
     </script>
 </body>
