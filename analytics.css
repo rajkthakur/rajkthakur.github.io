@@ -225,7 +225,9 @@
 @media (max-width: 768px) {
     .analytics-dashboard {
         bottom: 4.5rem;
-        right: 1rem;
+        left: 50%;
+        transform: translateX(30px);
+        right: auto;
         top: auto;
     }
     

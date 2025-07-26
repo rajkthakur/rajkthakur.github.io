@@ -207,8 +207,9 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .chat-widget {
-        bottom: 1rem;
-        left: 1rem;
+        bottom: 4.5rem;
+        left: 50%;
+        transform: translateX(-80px);
         right: auto;
     }
     
