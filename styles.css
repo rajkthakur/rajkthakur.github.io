@@ -95,41 +95,68 @@ body {
     top: 6px;
 }
 
-/* Modern Navigation */
+/* Modern Navigation - Vertical Sidebar */
 .nav {
     position: fixed !important;
-    top: 2rem !important;
+    top: 50% !important;
     right: 2rem !important;
+    transform: translateY(-50%) !important;
     z-index: 9999 !important;
     display: flex !important;
+    flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    background: var(--bg-card);
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(20px);
-    border: 1px solid var(--border-primary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 2rem;
-    padding: 0.5rem;
-    box-shadow: var(--shadow-lg);
+    padding: 1.5rem 0.75rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     visibility: visible !important;
     opacity: 1 !important;
 }
 
 .nav-item {
-    padding: 0.75rem 1.5rem !important;
-    color: var(--text-secondary) !important;
+    width: 3rem !important;
+    height: 3rem !important;
+    padding: 0 !important;
+    color: rgba(255, 255, 255, 0.6) !important;
     text-decoration: none !important;
-    border-radius: 1.5rem;
+    border-radius: 50%;
     font-weight: 500;
-    font-size: 0.875rem;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.75rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    display: block !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 2px solid transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.nav-item:hover {
-    color: var(--text-primary) !important;
-    background: var(--bg-card-hover) !important;
-    transform: translateY(-1px);
+.nav-item::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover,
+.nav-item:focus {
+    color: white !important;
+    background: rgba(99, 102, 241, 0.2) !important;
+    border-color: #6366f1;
+    transform: scale(1.1);
+}
+
+.nav-item:hover::before {
+    background: #6366f1;
+    transform: scale(1.5);
 }
 
 .nav-item.active,
@@ -137,13 +164,42 @@ body {
 .nav-item.active:focus {
     background: #6366f1 !important;
     color: white !important;
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.8) !important;
-    border: 2px solid #8b5cf6 !important;
-    transform: scale(1.1) !important;
+    border-color: #8b5cf6;
+    transform: scale(1.2) !important;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.6) !important;
     font-weight: 700 !important;
 }
 
-/* Even stronger backup */
+.nav-item.active::before {
+    background: white;
+    transform: scale(2);
+}
+
+/* Tooltip for navigation items */
+.nav-item::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    right: 4rem;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.nav-item:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+/* Even stronger backup for active state */
 a.nav-item.active {
     background-color: #6366f1 !important;
     color: #ffffff !important;
@@ -770,31 +826,44 @@ a.nav-item.active {
 @media (max-width: 768px) {
     .nav {
         position: fixed !important;
-        top: 1rem !important;
-        right: 1rem !important;
-        left: 1rem !important;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 0.25rem;
-        padding: 0.5rem;
+        bottom: 2rem !important;
+        left: 50% !important;
+        right: auto !important;
+        top: auto !important;
+        transform: translateX(-50%) !important;
+        flex-direction: row !important;
+        gap: 0.75rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 2rem;
         z-index: 9999 !important;
         visibility: visible !important;
         opacity: 1 !important;
+        background: rgba(0, 0, 0, 0.9);
     }
     
     .nav-item {
-        padding: 0.5rem 1rem !important;
-        font-size: 0.8rem !important;
-        flex: 1;
-        text-align: center;
-        min-width: auto;
-        display: block !important;
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+        font-size: 0.7rem !important;
+        display: flex !important;
+    }
+    
+    .nav-item::after {
+        bottom: 3.5rem;
+        right: 50%;
+        transform: translateX(50%);
+    }
+    
+    .nav-item:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(50%) translateY(-5px);
     }
     
     .theme-toggle {
         position: fixed !important;
-        top: 1rem !important;
-        left: 1rem !important;
+        top: 2rem !important;
+        left: 2rem !important;
         width: 2.5rem;
         height: 2.5rem;
         font-size: 1rem;
@@ -806,10 +875,12 @@ a.nav-item.active {
     .hero {
         padding-top: 6rem;
         min-height: 90vh;
+        padding-bottom: 6rem;
     }
     
     .section {
         padding: 4rem 1rem;
+        padding-bottom: 6rem;
     }
     
     .skills-grid,
