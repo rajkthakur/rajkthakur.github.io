@@ -136,6 +136,15 @@ body {
     color: white !important;
     background: var(--gradient-primary) !important;
     box-shadow: var(--shadow-glow) !important;
+    border: 2px solid #8b5cf6 !important;
+    transform: scale(1.05) !important;
+}
+
+/* Backup active state with attribute selector */
+.nav-item[data-active="true"] {
+    color: white !important;
+    background: #6366f1 !important;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.5) !important;
 }
 
 /* Theme Toggle */

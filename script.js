@@ -89,107 +89,115 @@ class ModernPortfolio {
         });
     }
 
-    // Navigation Highlight - Simplified and more reliable
+    // Navigation Highlight - Simplified with immediate feedback
     setupNavigationHighlight() {
         const navItems = document.querySelectorAll('.nav-item');
         const sections = document.querySelectorAll('section[id]');
 
-        // Create array of section data for easier processing
-        const sectionData = Array.from(sections).map(section => ({
-            id: section.id,
-            element: section,
-            navLink: document.querySelector(`.nav-item[href="#${section.id}"]`)
-        }));
+        console.log('Setting up navigation highlighting...');
+        console.log('Found nav items:', navItems.length);
+        console.log('Found sections:', sections.length);
 
-        console.log('Section data:', sectionData.map(s => s.id));
+        // Test function to manually activate navigation
+        window.testNavHighlight = (sectionId) => {
+            navItems.forEach(nav => nav.classList.remove('active'));
+            const targetNav = document.querySelector(`.nav-item[href="#${sectionId}"]`);
+            if (targetNav) {
+                targetNav.classList.add('active');
+                console.log('Manually activated:', sectionId);
+            }
+        };
+
+        // Add click handlers to navigation items for immediate feedback
+        navItems.forEach(navItem => {
+            navItem.addEventListener('click', (e) => {
+                // Remove active from all items
+                navItems.forEach(nav => {
+                    nav.classList.remove('active');
+                    nav.removeAttribute('data-active');
+                    nav.style.backgroundColor = '';
+                    nav.style.color = '';
+                    nav.style.boxShadow = '';
+                });
+                
+                // Add active to clicked item
+                navItem.classList.add('active');
+                navItem.setAttribute('data-active', 'true');
+                navItem.style.backgroundColor = '#6366f1';
+                navItem.style.color = 'white';
+                navItem.style.boxShadow = '0 0 20px rgba(99, 102, 241, 0.5)';
+                console.log('Clicked nav item:', navItem.textContent);
+            });
+        });
 
         const updateActiveNav = () => {
             const scrollY = window.scrollY;
             const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight;
             
-            // Check if we're at the very top
-            if (scrollY < 50) {
-                navItems.forEach(nav => nav.classList.remove('active'));
-                return;
-            }
+            console.log('Updating nav, scroll position:', scrollY);
             
-            // Check if we're at the very bottom
-            if (scrollY + windowHeight >= documentHeight - 50) {
-                navItems.forEach(nav => nav.classList.remove('active'));
-                const lastSection = sectionData[sectionData.length - 1];
-                if (lastSection && lastSection.navLink) {
-                    lastSection.navLink.classList.add('active');
-                    console.log('Bottom reached, activated:', lastSection.id);
-                }
-                return;
-            }
-
+            // Simple approach: find which section is most visible
             let activeSection = null;
-            let minDistance = Infinity;
+            let maxVisibleHeight = 0;
 
-            // Find the section closest to the center of the viewport
-            sectionData.forEach(sectionInfo => {
-                const section = sectionInfo.element;
+            sections.forEach(section => {
                 const rect = section.getBoundingClientRect();
-                const sectionCenter = rect.top + rect.height / 2;
-                const viewportCenter = windowHeight / 2;
-                const distance = Math.abs(sectionCenter - viewportCenter);
+                const visibleTop = Math.max(0, rect.top);
+                const visibleBottom = Math.min(windowHeight, rect.bottom);
+                const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+                
+                console.log(`Section ${section.id}:`, {
+                    top: rect.top,
+                    bottom: rect.bottom,
+                    visibleHeight: visibleHeight
+                });
 
-                // Only consider sections that are at least partially visible
-                if (rect.bottom > 0 && rect.top < windowHeight) {
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        activeSection = sectionInfo;
-                    }
+                if (visibleHeight > maxVisibleHeight && visibleHeight > 100) {
+                    maxVisibleHeight = visibleHeight;
+                    activeSection = section;
                 }
             });
 
-            // Alternative method: find section that occupies most of the viewport
-            if (!activeSection) {
-                let maxVisibleArea = 0;
+            // Clear all active states
+            navItems.forEach(nav => {
+                nav.classList.remove('active');
+                nav.removeAttribute('data-active');
+                nav.style.backgroundColor = ''; // Clear any inline styles
+                nav.style.color = '';
+            });
+
+            if (activeSection) {
+                const sectionId = activeSection.id;
+                const activeNav = document.querySelector(`.nav-item[href="#${sectionId}"]`);
                 
-                sectionData.forEach(sectionInfo => {
-                    const section = sectionInfo.element;
-                    const rect = section.getBoundingClientRect();
-                    
-                    // Calculate visible area
-                    const visibleTop = Math.max(0, rect.top);
-                    const visibleBottom = Math.min(windowHeight, rect.bottom);
-                    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-                    
-                    if (visibleHeight > maxVisibleArea) {
-                        maxVisibleArea = visibleHeight;
-                        activeSection = sectionInfo;
-                    }
-                });
-            }
-
-            // Update navigation
-            navItems.forEach(nav => nav.classList.remove('active'));
-            
-            if (activeSection && activeSection.navLink) {
-                activeSection.navLink.classList.add('active');
-                console.log('Activated section:', activeSection.id);
+                console.log('Active section:', sectionId);
+                console.log('Found nav element:', !!activeNav);
+                
+                if (activeNav) {
+                    activeNav.classList.add('active');
+                    activeNav.setAttribute('data-active', 'true');
+                    // Add inline style as backup
+                    activeNav.style.backgroundColor = '#6366f1';
+                    activeNav.style.color = 'white';
+                    activeNav.style.borderRadius = '1.5rem';
+                    activeNav.style.boxShadow = '0 0 20px rgba(99, 102, 241, 0.5)';
+                    console.log('Applied active class and styles to:', sectionId);
+                }
             }
         };
 
-        // Throttled scroll handler
-        let scrollTimeout;
-        const handleScroll = () => {
-            if (scrollTimeout) {
-                clearTimeout(scrollTimeout);
-            }
-            scrollTimeout = setTimeout(updateActiveNav, 10);
-        };
-
-        // Event listeners
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        window.addEventListener('resize', updateActiveNav, { passive: true });
-        window.addEventListener('load', updateActiveNav);
+        // Use a simple scroll handler
+        let scrollTimer;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(updateActiveNav, 50);
+        }, { passive: true });
 
         // Initial call
-        setTimeout(updateActiveNav, 100);
+        setTimeout(updateActiveNav, 500);
+        
+        console.log('Navigation highlighting setup complete');
+        console.log('Test with: testNavHighlight("about") in console');
     }
 
     // Performance Optimizations
