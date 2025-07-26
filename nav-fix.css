@@ -1,0 +1,89 @@
+/* Navigation Fix - Add this to ensure menu works properly */
+
+/* Ensure navigation is always visible and properly positioned */
+.nav {
+    position: fixed !important;
+    top: 30px !important;
+    right: 30px !important;
+    z-index: 1000 !important;
+    display: flex !important;
+    gap: 8px;
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border-radius: 50px;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+    padding: 12px 20px !important;
+    background: transparent;
+    border-radius: 25px;
+    color: var(--text-secondary) !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    font-size: 0.9rem;
+    position: relative;
+    overflow: hidden;
+    display: block !important;
+}
+
+.nav-item:hover,
+.nav-item:focus {
+    background: var(--bg-secondary) !important;
+    color: var(--text-color) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.nav-item.active {
+    background: var(--primary) !important;
+    color: white !important;
+}
+
+/* Mobile navigation fixes */
+@media (max-width: 768px) {
+    .nav {
+        position: fixed !important;
+        top: 15px !important;
+        left: 15px !important;
+        right: 15px !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px;
+        padding: 6px;
+    }
+    
+    .nav-item {
+        padding: 8px 12px !important;
+        font-size: 0.8rem !important;
+        flex: 1;
+        text-align: center;
+        min-width: auto;
+    }
+}
+
+/* Theme-specific navigation fixes */
+[data-theme="reader"] .nav {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="reader"] .nav-item {
+    color: #6b7280 !important;
+}
+
+[data-theme="reader"] .nav-item:hover {
+    color: #1f2937 !important;
+    background: #f8fafc !important;
+}
+
+[data-theme="reader"] .nav-item.active {
+    color: white !important;
+    background: #2563eb !important;
+}
