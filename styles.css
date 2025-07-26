@@ -651,9 +651,11 @@ body {
     }
     
     .theme-toggle {
-        top: 1rem;
-        right: 1rem;
-        left: auto;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        top: auto;
+        right: auto;
         width: 2.5rem;
         height: 2.5rem;
         font-size: 1rem;

@@ -224,7 +224,7 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .analytics-dashboard {
-        bottom: 1rem;
+        bottom: 4.5rem;
         right: 1rem;
         top: auto;
     }
