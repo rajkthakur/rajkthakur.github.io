@@ -132,19 +132,27 @@ body {
     transform: translateY(-1px);
 }
 
-.nav-item.active {
+.nav-item.active,
+.nav-item.active:hover,
+.nav-item.active:focus {
+    background: #6366f1 !important;
     color: white !important;
-    background: var(--gradient-primary) !important;
-    box-shadow: var(--shadow-glow) !important;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.8) !important;
     border: 2px solid #8b5cf6 !important;
-    transform: scale(1.05) !important;
+    transform: scale(1.1) !important;
+    font-weight: 700 !important;
 }
 
-/* Backup active state with attribute selector */
-.nav-item[data-active="true"] {
+/* Even stronger backup */
+a.nav-item.active {
+    background-color: #6366f1 !important;
+    color: #ffffff !important;
+}
+
+/* Inline style backup */
+.nav-item[style*="background-color: rgb(99, 102, 241)"] {
     color: white !important;
-    background: #6366f1 !important;
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.5) !important;
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.6) !important;
 }
 
 /* Theme Toggle */
