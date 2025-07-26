@@ -439,14 +439,16 @@
         [data-theme="reader"] .nav {
             background: rgba(255, 255, 255, 0.95);
             border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
+        
+        [data-theme="reader"] .nav-item {
             color: #6b7280;
-            background: rgba(255, 255, 255, 0.9);
         }
         
         [data-theme="reader"] .nav-item:hover {
             color: #1f2937;
-            background: #ffffff;
+            background: #f8fafc;
         }
         
         [data-theme="reader"] .nav-item.active {
@@ -455,8 +457,10 @@
         }
         
         [data-theme="reader"] .contact {
-            background: #f8fafc;
+            background: #ffffff;
             color: #1f2937;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
         [data-theme="reader"] .contact h2 {
@@ -469,13 +473,14 @@
         
         [data-theme="reader"] .contact-link {
             color: #1f2937;
-            background: #ffffff;
+            background: #f8fafc;
             border: 1px solid #e5e7eb;
         }
         
         [data-theme="reader"] .contact-link:hover {
             background: #2563eb;
             color: white;
+            border-color: #2563eb;
         }
         
         [data-theme="reader"] .bg-animation {
@@ -525,6 +530,7 @@
             color: #2563eb;
             border: 1px solid #bfdbfe;
         }
+        /* Navigation */
         .nav {
             position: fixed;
             top: 30px;
@@ -532,11 +538,11 @@
             z-index: 1000;
             display: flex;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--card-bg);
             backdrop-filter: blur(20px);
             border-radius: 50px;
             padding: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--border-color);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         
@@ -544,7 +550,7 @@
             padding: 12px 20px;
             background: transparent;
             border-radius: 25px;
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-secondary);
             text-decoration: none;
             transition: all 0.3s ease;
             font-weight: 500;
@@ -560,13 +566,13 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, var(--bg-secondary), transparent);
             transition: left 0.5s;
         }
         
         .nav-item:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
+            background: var(--bg-secondary);
+            color: var(--text-color);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
@@ -1264,11 +1270,26 @@
         }
         
         /* Contact Section */
+        /* Contact Section */
         .contact {
             text-align: center;
             padding: 80px 20px;
-            background: rgba(0, 0, 0, 0.3);
+            background: var(--card-bg);
             backdrop-filter: blur(20px);
+            color: var(--text-color);
+            border-radius: 20px;
+            margin: 20px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .contact h2 {
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+        
+        .contact p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
         }
         
         .contact-links {
@@ -1283,18 +1304,21 @@
             align-items: center;
             gap: 10px;
             padding: 15px 30px;
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--bg-secondary);
             backdrop-filter: blur(10px);
             border-radius: 50px;
-            color: white;
+            color: var(--text-color);
             text-decoration: none;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--border-color);
+            font-weight: 500;
         }
         
         .contact-link:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--primary);
+            color: white;
             transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
         
         /* Mobile-first responsive design */
