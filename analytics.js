@@ -99,54 +99,7 @@ class AnalyticsDashboard {
                             </div>
                         </div>
                         
-                        <div class="analytics-section">
-                            <h4>📈 Site Traffic</h4>
-                            <div class="github-stats" id="trafficStats">
-                                <div class="stat-item">
-                                    <span class="stat-label">Page Views (14d):</span>
-                                    <span class="stat-value" id="pageViews14d">Loading...</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-label">Unique Visitors:</span>
-                                    <span class="stat-value" id="uniqueVisitors">Loading...</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-label">Top Referrer:</span>
-                                    <span class="stat-value" id="topReferrer">Loading...</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-label">Clone Count:</span>
-                                    <span class="stat-value" id="cloneCount">Loading...</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="analytics-section">
-                            <h4>🚀 Performance</h4>
-                            <div class="performance-grid" id="performanceStats">
-                                <div class="perf-metric">
-                                    <div class="perf-label">Load Time</div>
-                                    <div class="perf-value" id="loadTime">Measuring...</div>
-                                </div>
-                                <div class="perf-metric">
-                                    <div class="perf-label">Mobile Score</div>
-                                    <div class="perf-value" id="mobileScore">95/100</div>
-                                </div>
-                                <div class="perf-metric">
-                                    <div class="perf-label">SEO Score</div>
-                                    <div class="perf-value" id="seoScore">98/100</div>
-                                </div>
-                                <div class="perf-metric">
-                                    <div class="perf-label">Accessibility</div>
-                                    <div class="perf-value" id="a11yScore">96/100</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="analytics-section">
-                            <h4>📊 Content Analytics</h4>
-                            <div class="chart-container" id="sectionPopularity">Loading...</div>
-                        </div>
+
                         
                         <div class="analytics-section">
                             <h4>📝 Medium Stats</h4>
@@ -270,10 +223,7 @@ class AnalyticsDashboard {
             // Fetch GitHub Pages site stats
             this.fetchPagesStats();
             
-            // Fetch traffic and performance stats
-            this.fetchTrafficStats();
-            this.measurePerformance();
-            this.trackContentAnalytics();
+
             
         } catch (error) {
             console.log('GitHub API rate limited or unavailable');
@@ -355,99 +305,7 @@ class AnalyticsDashboard {
         }
     }
     
-    async fetchTrafficStats() {
-        try {
-            // GitHub Traffic API (requires repo access)
-            const trafficResponse = await fetch('https://api.github.com/repos/rajkthakur/rajkthakur.github.io/traffic/views');
-            const trafficData = await trafficResponse.json();
-            
-            document.getElementById('pageViews14d').textContent = trafficData.count || 'N/A';
-            document.getElementById('uniqueVisitors').textContent = trafficData.uniques || 'N/A';
-            
-            // Referrer data
-            const referrerResponse = await fetch('https://api.github.com/repos/rajkthakur/rajkthakur.github.io/traffic/popular/referrers');
-            const referrers = await referrerResponse.json();
-            
-            if (referrers.length > 0) {
-                document.getElementById('topReferrer').textContent = referrers[0].referrer;
-            }
-            
-            // Clone data
-            const cloneResponse = await fetch('https://api.github.com/repos/rajkthakur/rajkthakur.github.io/traffic/clones');
-            const cloneData = await cloneResponse.json();
-            document.getElementById('cloneCount').textContent = cloneData.count || 'N/A';
-            
-        } catch (error) {
-            // Fallback data when API is restricted
-            document.getElementById('pageViews14d').textContent = '1,250+';
-            document.getElementById('uniqueVisitors').textContent = '850+';
-            document.getElementById('topReferrer').textContent = 'LinkedIn';
-            document.getElementById('cloneCount').textContent = '45';
-        }
-    }
-    
-    measurePerformance() {
-        // Measure actual page load time
-        const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-        const loadTimeSeconds = (loadTime / 1000).toFixed(2);
-        document.getElementById('loadTime').textContent = loadTimeSeconds + 's';
-        
-        // Simulate other performance metrics (in production, use Lighthouse API)
-        setTimeout(() => {
-            document.getElementById('mobileScore').textContent = '95/100';
-            document.getElementById('seoScore').textContent = '98/100';
-            document.getElementById('a11yScore').textContent = '96/100';
-        }, 1000);
-    }
-    
-    trackContentAnalytics() {
-        // Track section popularity based on intersection time
-        const sectionTimes = {};
-        const sectionNames = {
-            'about': 'About Section',
-            'skills': 'Skills & Expertise', 
-            'experience': 'Experience',
-            'blog': 'Technical Writing',
-            'contact': 'Contact'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const sectionId = entry.target.id;
-                if (entry.isIntersecting) {
-                    sectionTimes[sectionId] = (sectionTimes[sectionId] || 0) + 1;
-                }
-            });
-        }, { threshold: 0.3 });
-        
-        document.querySelectorAll('section[id]').forEach(section => {
-            observer.observe(section);
-        });
-        
-        // Update content analytics after 5 seconds
-        setTimeout(() => {
-            const container = document.getElementById('sectionPopularity');
-            const sortedSections = Object.entries(sectionTimes)
-                .sort(([,a], [,b]) => b - a)
-                .slice(0, 5);
-                
-            const total = Object.values(sectionTimes).reduce((sum, count) => sum + count, 0);
-            
-            container.innerHTML = sortedSections.map(([sectionId, count]) => {
-                const percentage = total > 0 ? Math.round((count / total) * 100) : 20;
-                const name = sectionNames[sectionId] || sectionId;
-                return `
-                    <div class="chart-item">
-                        <div class="chart-label">📊 ${name}</div>
-                        <div class="chart-bar">
-                            <div class="chart-fill" style="width: ${percentage}%"></div>
-                        </div>
-                        <div class="chart-value">${count} views (${percentage}%)</div>
-                    </div>
-                `;
-            }).join('');
-        }, 5000);
-    }
+
     
     getDeviceType() {
         const ua = navigator.userAgent;
