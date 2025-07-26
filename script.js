@@ -89,97 +89,107 @@ class ModernPortfolio {
         });
     }
 
-    // Navigation Highlight - More robust approach
+    // Navigation Highlight - Simplified and more reliable
     setupNavigationHighlight() {
         const navItems = document.querySelectorAll('.nav-item');
         const sections = document.querySelectorAll('section[id]');
 
-        console.log('Found sections:', Array.from(sections).map(s => s.id)); // Debug log
+        // Create array of section data for easier processing
+        const sectionData = Array.from(sections).map(section => ({
+            id: section.id,
+            element: section,
+            navLink: document.querySelector(`.nav-item[href="#${section.id}"]`)
+        }));
 
-        // Function to update active navigation
+        console.log('Section data:', sectionData.map(s => s.id));
+
         const updateActiveNav = () => {
-            const scrollPosition = window.scrollY + 200; // Offset for better detection
-            let activeSection = null;
-
-            // Find the current section based on scroll position
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                const sectionBottom = sectionTop + sectionHeight;
-
-                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                    activeSection = section;
-                }
-            });
-
-            // If no section is found, check if we're at the top
-            if (!activeSection && window.scrollY < 100) {
-                // Don't highlight any section when at the very top
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            // Check if we're at the very top
+            if (scrollY < 50) {
                 navItems.forEach(nav => nav.classList.remove('active'));
                 return;
             }
-
-            // If still no section found, use the last section if we're at the bottom
-            if (!activeSection && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
-                activeSection = sections[sections.length - 1];
-            }
-
-            if (activeSection) {
-                const id = activeSection.getAttribute('id');
-                console.log('Active section:', id); // Debug log
-                
-                // Remove active class from all nav items
+            
+            // Check if we're at the very bottom
+            if (scrollY + windowHeight >= documentHeight - 50) {
                 navItems.forEach(nav => nav.classList.remove('active'));
-                
-                // Add active class to current nav item
-                const activeNav = document.querySelector(`.nav-item[href="#${id}"]`);
-                if (activeNav) {
-                    activeNav.classList.add('active');
-                    console.log('Activated nav:', activeNav.textContent); // Debug log
-                } else {
-                    console.log('No nav found for section:', id); // Debug log
+                const lastSection = sectionData[sectionData.length - 1];
+                if (lastSection && lastSection.navLink) {
+                    lastSection.navLink.classList.add('active');
+                    console.log('Bottom reached, activated:', lastSection.id);
                 }
+                return;
             }
-        };
 
-        // Use scroll event with throttling for better performance
-        let ticking = false;
-        const handleScroll = () => {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    updateActiveNav();
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        };
+            let activeSection = null;
+            let minDistance = Infinity;
 
-        // Listen to scroll events
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        
-        // Also use intersection observer as backup
-        const navObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
-                    console.log('Intersection observer detected:', id); // Debug log
+            // Find the section closest to the center of the viewport
+            sectionData.forEach(sectionInfo => {
+                const section = sectionInfo.element;
+                const rect = section.getBoundingClientRect();
+                const sectionCenter = rect.top + rect.height / 2;
+                const viewportCenter = windowHeight / 2;
+                const distance = Math.abs(sectionCenter - viewportCenter);
+
+                // Only consider sections that are at least partially visible
+                if (rect.bottom > 0 && rect.top < windowHeight) {
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        activeSection = sectionInfo;
+                    }
                 }
             });
-        }, {
-            threshold: [0.1, 0.5],
-            rootMargin: '-20% 0px -20% 0px'
-        });
 
-        // Observe all sections
-        sections.forEach(section => {
-            navObserver.observe(section);
-        });
+            // Alternative method: find section that occupies most of the viewport
+            if (!activeSection) {
+                let maxVisibleArea = 0;
+                
+                sectionData.forEach(sectionInfo => {
+                    const section = sectionInfo.element;
+                    const rect = section.getBoundingClientRect();
+                    
+                    // Calculate visible area
+                    const visibleTop = Math.max(0, rect.top);
+                    const visibleBottom = Math.min(windowHeight, rect.bottom);
+                    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+                    
+                    if (visibleHeight > maxVisibleArea) {
+                        maxVisibleArea = visibleHeight;
+                        activeSection = sectionInfo;
+                    }
+                });
+            }
+
+            // Update navigation
+            navItems.forEach(nav => nav.classList.remove('active'));
+            
+            if (activeSection && activeSection.navLink) {
+                activeSection.navLink.classList.add('active');
+                console.log('Activated section:', activeSection.id);
+            }
+        };
+
+        // Throttled scroll handler
+        let scrollTimeout;
+        const handleScroll = () => {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+            scrollTimeout = setTimeout(updateActiveNav, 10);
+        };
+
+        // Event listeners
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('resize', updateActiveNav, { passive: true });
+        window.addEventListener('load', updateActiveNav);
 
         // Initial call
-        updateActiveNav();
-
-        // Handle page load
-        window.addEventListener('load', updateActiveNav);
+        setTimeout(updateActiveNav, 100);
     }
 
     // Performance Optimizations
@@ -293,6 +303,38 @@ class KeyboardNavigation {
 document.addEventListener('DOMContentLoaded', () => {
     new ModernPortfolio();
     new KeyboardNavigation();
+    
+    // Add debug function to window for manual testing
+    window.debugNavigation = () => {
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.nav-item');
+        
+        console.log('=== Navigation Debug Info ===');
+        console.log('Sections found:', sections.length);
+        sections.forEach((section, index) => {
+            const rect = section.getBoundingClientRect();
+            console.log(`${index + 1}. Section "${section.id}":`, {
+                top: rect.top,
+                bottom: rect.bottom,
+                height: rect.height,
+                visible: rect.bottom > 0 && rect.top < window.innerHeight
+            });
+        });
+        
+        console.log('Nav items found:', navItems.length);
+        navItems.forEach((nav, index) => {
+            console.log(`${index + 1}. Nav "${nav.textContent}":`, {
+                href: nav.getAttribute('href'),
+                active: nav.classList.contains('active')
+            });
+        });
+        
+        console.log('Current scroll position:', window.scrollY);
+        console.log('Window height:', window.innerHeight);
+        console.log('Document height:', document.documentElement.scrollHeight);
+    };
+    
+    console.log('Debug function added. Type debugNavigation() in console to test.');
 });
 
 // Handle reduced motion preference
