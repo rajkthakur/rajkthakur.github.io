@@ -751,3 +751,22 @@ body {
     background: var(--primary);
     color: white;
 }
+
+/* Blog section styles */
+.blog-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.blog-intro p {
+    margin-bottom: 2rem;
+}
+
+.blog-buttons {
+    margin-bottom: 2rem;
+}
+
+.blog-note {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
