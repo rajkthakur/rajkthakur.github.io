@@ -78,6 +78,24 @@ class AnalyticsDashboard {
                         </div>
                         
                         <div class="analytics-section">
+                            <h4>🏢 Organizations</h4>
+                            <div class="github-stats" id="orgStats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Amazon Web Services:</span>
+                                    <span class="stat-value">Senior ML Engineer</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">GitHub Orgs:</span>
+                                    <span class="stat-value" id="orgCount">Loading...</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Open Source:</span>
+                                    <span class="stat-value">Active Contributor</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-section">
                             <h4>🌐 GitHub Pages Site</h4>
                             <div class="github-stats" id="pagesStats">
                                 <div class="stat-item">
@@ -223,6 +241,9 @@ class AnalyticsDashboard {
             // Fetch GitHub Pages site stats
             this.fetchPagesStats();
             
+            // Fetch organizations
+            this.fetchOrganizations();
+            
 
             
         } catch (error) {
@@ -302,6 +323,22 @@ class AnalyticsDashboard {
             document.getElementById('lastCommit').textContent = 'Recently';
             document.getElementById('commitCount').textContent = '50+';
             document.getElementById('repoSize').textContent = '2.5 MB';
+        }
+    }
+    
+    async fetchOrganizations() {
+        try {
+            const orgsResponse = await fetch('https://api.github.com/users/rajkthakur/orgs');
+            const orgs = await orgsResponse.json();
+            
+            if (orgs.length > 0) {
+                document.getElementById('orgCount').textContent = orgs.length + ' organizations';
+            } else {
+                document.getElementById('orgCount').textContent = 'Private organizations';
+            }
+            
+        } catch (error) {
+            document.getElementById('orgCount').textContent = 'AWS + Others';
         }
     }
     
