@@ -89,26 +89,44 @@ class ModernPortfolio {
         });
     }
 
-    // Navigation Highlight - Fixed to work properly
+    // Navigation Highlight - More robust approach
     setupNavigationHighlight() {
         const navItems = document.querySelectorAll('.nav-item');
         const sections = document.querySelectorAll('section[id]');
 
-        // Create a more robust intersection observer for navigation
-        const navObserver = new IntersectionObserver((entries) => {
-            let activeSection = null;
-            let maxRatio = 0;
+        console.log('Found sections:', Array.from(sections).map(s => s.id)); // Debug log
 
-            // Find the section with the highest intersection ratio
-            entries.forEach(entry => {
-                if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
-                    maxRatio = entry.intersectionRatio;
-                    activeSection = entry.target;
+        // Function to update active navigation
+        const updateActiveNav = () => {
+            const scrollPosition = window.scrollY + 200; // Offset for better detection
+            let activeSection = null;
+
+            // Find the current section based on scroll position
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionBottom = sectionTop + sectionHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    activeSection = section;
                 }
             });
 
+            // If no section is found, check if we're at the top
+            if (!activeSection && window.scrollY < 100) {
+                // Don't highlight any section when at the very top
+                navItems.forEach(nav => nav.classList.remove('active'));
+                return;
+            }
+
+            // If still no section found, use the last section if we're at the bottom
+            if (!activeSection && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
+                activeSection = sections[sections.length - 1];
+            }
+
             if (activeSection) {
                 const id = activeSection.getAttribute('id');
+                console.log('Active section:', id); // Debug log
                 
                 // Remove active class from all nav items
                 navItems.forEach(nav => nav.classList.remove('active'));
@@ -117,11 +135,39 @@ class ModernPortfolio {
                 const activeNav = document.querySelector(`.nav-item[href="#${id}"]`);
                 if (activeNav) {
                     activeNav.classList.add('active');
+                    console.log('Activated nav:', activeNav.textContent); // Debug log
+                } else {
+                    console.log('No nav found for section:', id); // Debug log
                 }
             }
+        };
+
+        // Use scroll event with throttling for better performance
+        let ticking = false;
+        const handleScroll = () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    updateActiveNav();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
+        // Listen to scroll events
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        
+        // Also use intersection observer as backup
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    console.log('Intersection observer detected:', id); // Debug log
+                }
+            });
         }, {
-            threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
-            rootMargin: '-10% 0px -10% 0px'
+            threshold: [0.1, 0.5],
+            rootMargin: '-20% 0px -20% 0px'
         });
 
         // Observe all sections
@@ -129,12 +175,11 @@ class ModernPortfolio {
             navObserver.observe(section);
         });
 
-        // Handle initial state and scroll to top
-        window.addEventListener('load', () => {
-            if (window.scrollY < 100) {
-                navItems.forEach(nav => nav.classList.remove('active'));
-            }
-        });
+        // Initial call
+        updateActiveNav();
+
+        // Handle page load
+        window.addEventListener('load', updateActiveNav);
     }
 
     // Performance Optimizations
