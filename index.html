@@ -14,12 +14,14 @@
         }
         
         :root {
-            --primary: #6366f1;
-            --secondary: #8b5cf6;
-            --accent: #06b6d4;
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #0ea5e9;
             --dark: #0f172a;
             --light: #f8fafc;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --gradient: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #0ea5e9 100%);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
         }
         
         body {
@@ -38,7 +40,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #06b6d4);
+            background: linear-gradient(-45deg, #1e40af, #2563eb, #0ea5e9, #1e293b);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
         }
@@ -76,27 +78,57 @@
         /* Navigation */
         .nav {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 30px;
+            right: 30px;
             z-index: 1000;
             display: flex;
-            gap: 20px;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 50px;
+            padding: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         
         .nav-item {
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            background: transparent;
             border-radius: 25px;
-            color: white;
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-weight: 500;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
         }
         
         .nav-item:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-item:hover::before {
+            left: 100%;
+        }
+        
+        .nav-item.active {
+            background: var(--primary);
+            color: white;
         }
         
         /* Hero Section */
@@ -501,27 +533,30 @@
             100% { width: 40%; opacity: 0.3; }
         }
         
-        /* Interactive Timeline */
-        .timeline {
+        /* Professional Timeline */
+        .professional-timeline {
             position: relative;
             margin: 50px 0;
         }
         
-        .timeline::before {
+        .professional-timeline::before {
             content: '';
             position: absolute;
             left: 50%;
             top: 0;
             bottom: 0;
-            width: 2px;
+            width: 3px;
             background: linear-gradient(to bottom, var(--primary), var(--secondary), var(--accent));
             transform: translateX(-50%);
+            border-radius: 2px;
         }
         
         .timeline-item {
             position: relative;
-            margin: 50px 0;
+            margin: 60px 0;
             width: 45%;
+            opacity: 0;
+            animation: timelineSlide 0.8s ease-out forwards;
         }
         
         .timeline-item:nth-child(odd) {
@@ -532,34 +567,135 @@
         .timeline-item:nth-child(even) {
             left: 55%;
             text-align: left;
+            animation: timelineSlideRight 0.8s ease-out forwards;
         }
         
         .timeline-content {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
             color: white;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         
         .timeline-item::before {
             content: '';
             position: absolute;
-            top: 20px;
+            top: 30px;
             width: 20px;
             height: 20px;
             background: var(--accent);
             border-radius: 50%;
-            border: 3px solid white;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px var(--primary);
         }
         
         .timeline-item:nth-child(odd)::before {
-            right: -60px;
+            right: -70px;
         }
         
         .timeline-item:nth-child(even)::before {
-            left: -60px;
+            left: -70px;
+        }
+        
+        .company-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .company-info h3 {
+            color: white;
+            margin: 0;
+            font-size: 1.3rem;
+        }
+        
+        .duration {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .role-item {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .role-item h4 {
+            color: white;
+            margin: 0 0 8px 0;
+            font-size: 1.1rem;
+        }
+        
+        .role-duration {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .location {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .role-description {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+        
+        .achievements {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        
+        .achievements li {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .skill-tag {
+            background: rgba(37, 99, 235, 0.2);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(37, 99, 235, 0.3);
         }
         
         /* Blog Section */
@@ -726,14 +862,28 @@
                 left: 20px;
             }
             
+            .professional-timeline::before {
+                left: 30px;
+            }
+            
             .timeline-item {
-                width: calc(100% - 50px);
-                left: 50px !important;
+                width: calc(100% - 80px);
+                left: 80px !important;
                 text-align: left !important;
             }
             
             .timeline-item::before {
-                left: -60px !important;
+                left: -70px !important;
+            }
+            
+            .company-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .skills-tags {
+                justify-content: flex-start;
             }
             
             .contact-links {
@@ -853,24 +1003,137 @@
     <!-- Experience Timeline -->
     <section id="experience" class="section">
         <h2 class="fade-in">Professional Journey</h2>
-        <div class="timeline">
+        <div class="professional-timeline">
             <div class="timeline-item fade-in">
                 <div class="timeline-content">
-                    <h3>Senior Software Engineer - Amazon</h3>
-                    <p><strong>AWS Neuron Team</strong></p>
-                    <p>Leading ML infrastructure development for custom silicon, optimizing neural networks for cloud deployment</p>
+                    <div class="company-header">
+                        <div class="company-logo">AWS</div>
+                        <div class="company-info">
+                            <h3>Amazon Web Services (AWS)</h3>
+                            <span class="duration">5 yrs 2 mos • Full-time</span>
+                        </div>
+                    </div>
+                    
+                    <div class="role-item">
+                        <h4>Senior Software Development Engineer</h4>
+                        <span class="role-duration">Jul 2024 - Present • 1 yr 1 mo</span>
+                        <span class="location">United States • On-site</span>
+                        <div class="skills-tags">
+                            <span class="skill-tag">PyTorch</span>
+                            <span class="skill-tag">JAX</span>
+                            <span class="skill-tag">Machine Learning</span>
+                        </div>
+                    </div>
+                    
+                    <div class="role-item">
+                        <h4>AWS AI SDE II</h4>
+                        <span class="role-duration">Dec 2022 - Jul 2024 • 1 yr 8 mos</span>
+                        <span class="location">Santa Clara, California, United States</span>
+                        <div class="skills-tags">
+                            <span class="skill-tag">PyTorch</span>
+                            <span class="skill-tag">Machine Learning</span>
+                        </div>
+                    </div>
+                    
+                    <div class="role-item">
+                        <h4>Software Development Engineer II</h4>
+                        <span class="role-duration">Jun 2020 - Dec 2022 • 2 yrs 7 mos</span>
+                        <span class="location">Bengaluru, Karnataka, India</span>
+                        <p class="role-description">Working on OpenSearch project</p>
+                        <div class="skills-tags">
+                            <span class="skill-tag">Mentoring</span>
+                            <span class="skill-tag">Service Deployment</span>
+                            <span class="skill-tag">Distributed Systems</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+
             <div class="timeline-item fade-in">
                 <div class="timeline-content">
-                    <h3>ML Infrastructure Specialist</h3>
-                    <p>Building scalable systems for deep learning model training and inference at enterprise scale</p>
+                    <div class="company-header">
+                        <div class="company-logo">GRAB</div>
+                        <div class="company-info">
+                            <h3>Grab</h3>
+                            <span class="duration">2 yrs • Full-time</span>
+                        </div>
+                    </div>
+                    
+                    <div class="role-item">
+                        <h4>Senior Software Engineer</h4>
+                        <span class="role-duration">Oct 2019 - Jun 2020 • 9 mos</span>
+                        <span class="location">Bengaluru Area, India</span>
+                        <p class="role-description">Part of Grab Financial Group. Lead Engineer in Settlement Platform (post payment to merchants)</p>
+                        <ul class="achievements">
+                            <li>Design and Development of Core Business Unit for Post Payment to SME merchants</li>
+                            <li>Design and Development of Core Business Unit for Post Payment to Payment Gateways</li>
+                            <li>Design and Development of Core Business Unit which facilities international payments</li>
+                            <li>Scalability of Settlement Platform from worker based system to event based system</li>
+                            <li>Code Reviews, Help peers in design discussion and maintain system resilience</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="role-item">
+                        <h4>Software Engineer Backend III</h4>
+                        <span class="role-duration">Jul 2018 - Sep 2019 • 1 yr 3 mos</span>
+                        <span class="location">Bangalore</span>
+                    </div>
                 </div>
             </div>
+
             <div class="timeline-item fade-in">
                 <div class="timeline-content">
-                    <h3>Open Source Contributor</h3>
-                    <p>Contributing to ML frameworks, system design solutions, and developer tools</p>
+                    <div class="company-header">
+                        <div class="company-logo">YTR</div>
+                        <div class="company-info">
+                            <h3>Yatra Online Private Ltd</h3>
+                            <span class="duration">9 mos • Full-time</span>
+                        </div>
+                    </div>
+                    
+                    <div class="role-item">
+                        <h4>Software Engineer</h4>
+                        <span class="role-duration">Nov 2017 - Jul 2018 • 9 mos</span>
+                        <span class="location">Hyderabad Area, India</span>
+                        <p class="role-description">Working on flight booking and travel platform systems</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-in">
+                <div class="timeline-content">
+                    <div class="company-header">
+                        <div class="company-logo">TCS</div>
+                        <div class="company-info">
+                            <h3>Tata Consultancy Services</h3>
+                            <span class="duration">2 yrs 1 mo • Full-time</span>
+                        </div>
+                    </div>
+                    
+                    <div class="role-item">
+                        <h4>Software Engineer</h4>
+                        <span class="role-duration">Aug 2015 - Aug 2017 • 2 yrs 1 mo</span>
+                        <span class="location">Hyderabad, Telangana, India</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-in">
+                <div class="timeline-content">
+                    <div class="company-header">
+                        <div class="company-logo">FL</div>
+                        <div class="company-info">
+                            <h3>Freelancer Consultant</h3>
+                            <span class="duration">1 yr 2 mos</span>
+                        </div>
+                    </div>
+                    
+                    <div class="role-item">
+                        <h4>Software Development Specialist</h4>
+                        <span class="role-duration">Jun 2014 - Jul 2015 • 1 yr 2 mos</span>
+                        <span class="location">India</span>
+                        <p class="role-description">Internet and Project Management consulting</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -880,9 +1143,9 @@
                 <div style="flex: 2;">
                     <h3 style="color: white; margin-bottom: 20px;">Innovation in Action</h3>
                     <p style="font-size: 1.1rem; line-height: 1.7;">
-                        At Amazon, I work on cutting-edge projects that push the boundaries of what's possible in machine learning. 
-                        From optimizing neural networks for custom hardware to building infrastructure that scales to millions of requests, 
-                        every day brings new challenges and opportunities to innovate.
+                        Throughout my career journey from TCS to Amazon, I've consistently worked on cutting-edge projects that push the boundaries of technology. 
+                        From building scalable payment systems at Grab to optimizing neural networks for AWS custom silicon, 
+                        every role has contributed to my expertise in large-scale system design and machine learning infrastructure.
                     </p>
                 </div>
                 <div class="gif-container">
@@ -1077,9 +1340,32 @@
             });
         }, observerOptions);
         
+        // Navigation active state
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    document.querySelectorAll('.nav-item').forEach(nav => {
+                        nav.classList.remove('active');
+                        if (nav.getAttribute('href') === `#${id}`) {
+                            nav.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, {
+            threshold: 0.3,
+            rootMargin: '-20% 0px -20% 0px'
+        });
+        
         // Observe all fade-in elements
         document.querySelectorAll('.fade-in').forEach(el => {
             observer.observe(el);
+        });
+        
+        // Observe all sections for navigation
+        document.querySelectorAll('section[id]').forEach(section => {
+            navObserver.observe(section);
         });
         
         // Initialize particles
