@@ -1,0 +1,305 @@
+/* Analytics Dashboard Styles */
+.analytics-dashboard {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 999;
+    font-family: 'Inter', sans-serif;
+}
+
+.analytics-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.analytics-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+
+.analytics-icon {
+    font-size: 1.1rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.analytics-panel {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 400px;
+    max-height: 80vh;
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: 1rem;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.analytics-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.analytics-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.analytics-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.analytics-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.analytics-content {
+    padding: 1.5rem;
+    max-height: calc(80vh - 80px);
+    overflow-y: auto;
+}
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.metric-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+}
+
+.metric-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.analytics-section {
+    margin-bottom: 2rem;
+}
+
+.analytics-section h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.chart-container {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: 0.75rem;
+    padding: 1rem;
+}
+
+.chart-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+}
+
+.chart-item:last-child {
+    margin-bottom: 0;
+}
+
+.chart-label {
+    min-width: 80px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.chart-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--bg-primary);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.chart-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.chart-value {
+    min-width: 60px;
+    text-align: right;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.8rem;
+}
+
+.github-stats,
+.medium-stats {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: 0.75rem;
+    padding: 1rem;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-primary);
+    font-size: 0.85rem;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.stat-value {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .analytics-dashboard {
+        top: 1rem;
+        right: 1rem;
+    }
+    
+    .analytics-panel {
+        width: calc(100vw - 2rem);
+        max-width: 350px;
+        max-height: 70vh;
+    }
+    
+    .analytics-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .analytics-content {
+        padding: 1rem;
+    }
+    
+    .chart-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+    
+    .chart-label {
+        min-width: auto;
+    }
+    
+    .chart-value {
+        text-align: left;
+    }
+}
+
+/* Scrollbar Styling */
+.analytics-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.analytics-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.analytics-content::-webkit-scrollbar-thumb {
+    background: var(--border-primary);
+    border-radius: 2px;
+}
+
+.analytics-content::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* Animation for metric updates */
+.metric-value {
+    transition: all 0.3s ease;
+}
+
+.metric-value.updated {
+    transform: scale(1.1);
+    color: var(--success);
+}
+
+/* Real-time indicator */
+.analytics-header::after {
+    content: '';
+    position: absolute;
+    top: 1rem;
+    right: 4rem;
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+}
