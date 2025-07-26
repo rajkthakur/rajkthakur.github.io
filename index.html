@@ -3,215 +3,674 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raj Thakur - Personal Website</title>
+    <title>Raj Thakur - ML Engineer & Innovation Architect</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            color: var(--dark);
+            overflow-x: hidden;
+            background: var(--dark);
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #06b6d4);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
         }
         
-        .header {
-            text-align: center;
-            padding: 60px 0;
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-item {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
             color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
         
-        .header p {
-            font-size: 1.2rem;
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #f0f9ff, #ddd6fe);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            from { filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3)); }
+            to { filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.6)); }
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
             opacity: 0.9;
         }
         
-        .content {
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-            margin: 20px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+        
+        /* Sections */
         .section {
-            margin-bottom: 40px;
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            color: white;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
         
         .section h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 2rem;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: white;
+            position: relative;
         }
         
-        .skills {
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        /* Skills Grid */
+        .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
         }
         
         .skill-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
         }
         
         .skill-card h3 {
-            color: #333;
-            margin-bottom: 10px;
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
         }
         
+        .skill-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+        
+        /* GIF Integration */
+        .gif-section {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin: 60px 0;
+        }
+        
+        .gif-container {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .gif-placeholder {
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gif-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Interactive Timeline */
+        .timeline {
+            position: relative;
+            margin: 50px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary), var(--accent));
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin: 50px 0;
+            width: 45%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 55%;
+            text-align: left;
+        }
+        
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+        
+        .timeline-item:nth-child(odd)::before {
+            right: -60px;
+        }
+        
+        .timeline-item:nth-child(even)::before {
+            left: -60px;
+        }
+        
+        /* Contact Section */
         .contact {
             text-align: center;
-            background: #667eea;
-            color: white;
-            padding: 40px;
-            border-radius: 15px;
-            margin-top: 20px;
+            padding: 80px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
         }
         
-        .contact a {
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
             color: white;
             text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.1rem;
-            transition: opacity 0.3s;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
-        .contact a:hover {
-            opacity: 0.8;
+        .contact-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
         }
         
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .content {
+            .nav {
+                position: static;
+                justify-content: center;
                 padding: 20px;
             }
             
-            .skills {
+            .gif-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                width: calc(100% - 50px);
+                left: 50px !important;
+                text-align: left !important;
+            }
+            
+            .timeline-item::before {
+                left: -60px !important;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .skills-grid {
                 grid-template-columns: 1fr;
             }
+        }
+        
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
+    <!-- Animated Background -->
+    <div class="bg-animation"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#about" class="nav-item">About</a>
+        <a href="#skills" class="nav-item">Skills</a>
+        <a href="#experience" class="nav-item">Experience</a>
+        <a href="#contact" class="nav-item">Contact</a>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
             <h1>Raj Thakur</h1>
-            <p>Senior Software Engineer | Machine Learning & Cloud Infrastructure Specialist</p>
-        </header>
-        
-        <main class="content">
-            <section class="section">
-                <h2>About Me</h2>
-                <p>I'm a Senior Software Engineer at Amazon with over 8 years of experience in machine learning, distributed systems, and cloud infrastructure. I specialize in building scalable ML solutions and optimizing high-performance computing systems for AI workloads.</p>
-                <p style="margin-top: 15px;">Currently working on AWS Neuron, Amazon's custom silicon for machine learning inference and training, where I focus on optimizing deep learning models for cloud-scale deployment.</p>
-            </section>
-            
-            <section class="section">
-                <h2>Technical Expertise</h2>
-                <div class="skills">
-                    <div class="skill-card">
-                        <h3>🤖 Machine Learning</h3>
-                        <p>Deep Learning, Neural Networks, Model Optimization, AWS Neuron, TensorFlow, PyTorch</p>
-                    </div>
-                    <div class="skill-card">
-                        <h3>☁️ Cloud & Infrastructure</h3>
-                        <p>AWS Services, Distributed Systems, Microservices, Container Orchestration</p>
-                    </div>
-                    <div class="skill-card">
-                        <h3>💻 Programming</h3>
-                        <p>Python, Java, JavaScript, Go, System Programming, Algorithm Design</p>
-                    </div>
-                    <div class="skill-card">
-                        <h3>🏗️ System Design</h3>
-                        <p>Large-scale Architecture, Performance Optimization, Scalability, Reliability Engineering</p>
-                    </div>
-                    <div class="skill-card">
-                        <h3>🔍 Search & Analytics</h3>
-                        <p>Elasticsearch, Data Processing, Search Algorithms, Performance Tuning</p>
-                    </div>
-                    <div class="skill-card">
-                        <h3>🛠️ DevOps & Tools</h3>
-                        <p>CI/CD, Infrastructure as Code, Monitoring, Automation, Version Control</p>
+            <p>ML Engineer & Innovation Architect</p>
+            <p style="font-size: 1.2rem; opacity: 0.8;">Transforming ideas into intelligent solutions at Amazon</p>
+            <a href="#about" class="cta-button">Explore My Journey</a>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="glass-card fade-in">
+            <h2>About Me</h2>
+            <div class="gif-section">
+                <div class="gif-container">
+                    <div class="gif-placeholder">
+                        🤖 AI/ML Animation
+                        <br>
+                        <small>(Neural Network GIF)</small>
                     </div>
                 </div>
-            </section>
-
-            <section class="section">
-                <h2>Professional Experience</h2>
-                <div style="margin-bottom: 25px;">
-                    <h3 style="color: #667eea; margin-bottom: 5px;">Senior Software Engineer - Amazon</h3>
-                    <p style="color: #666; margin-bottom: 10px;">AWS Neuron Team | Machine Learning Infrastructure</p>
-                    <ul style="padding-left: 20px;">
-                        <li>Developing and optimizing machine learning inference solutions on AWS custom silicon</li>
-                        <li>Building scalable infrastructure for deep learning model deployment</li>
-                        <li>Performance optimization of neural networks for cloud-scale applications</li>
-                        <li>Contributing to open-source ML frameworks and tools</li>
-                    </ul>
+                <div style="flex: 2;">
+                    <p style="font-size: 1.2rem; line-height: 1.8;">
+                        I'm a Senior Software Engineer at Amazon, specializing in machine learning infrastructure and AWS Neuron. 
+                        With 8+ years of experience, I architect scalable ML solutions that power next-generation AI applications.
+                    </p>
+                    <p style="font-size: 1.1rem; margin-top: 20px; opacity: 0.9;">
+                        My passion lies in bridging the gap between cutting-edge research and production-ready systems, 
+                        optimizing deep learning models for cloud-scale deployment.
+                    </p>
                 </div>
-            </section>
-            
-            <section class="section">
-                <h2>Featured Projects</h2>
-                <div class="skills">
-                    <div class="skill-card">
-                        <h3>🧠 AWS Neuron Samples</h3>
-                        <p>Jupyter notebooks and examples for machine learning inference optimization on AWS Neuron chips</p>
-                    </div>
-                    <div class="skill-card">
-                        <h3>🏛️ Software System Design</h3>
-                        <p>Comprehensive solutions and discussions for large-scale system design problems</p>
-                    </div>
-                    <div class="skill-card">
-                        <h3>💰 FinSage</h3>
-                        <p>Financial technology application with modern web technologies</p>
-                    </div>
-                    <div class="skill-card">
-                        <h3>🔍 Search Infrastructure</h3>
-                        <p>Contributions to Elasticsearch and distributed search systems</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section">
-                <h2>Education & Certifications</h2>
-                <p>Continuous learner with focus on emerging technologies in AI/ML and cloud computing. Active contributor to open-source projects and technical communities.</p>
-            </section>
-        </main>
-        
-        <footer class="contact">
-            <h2>Let's Connect</h2>
-            <p style="margin: 20px 0;">I'm always interested in discussing machine learning, system design, and innovative technology solutions.</p>
-            <div>
-                <a href="https://github.com/rajkthakur" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/raj-thakur-39756838" target="_blank">LinkedIn</a>
-                <a href="mailto:rajanand.thakur@gmail.com">Email</a>
             </div>
-        </footer>
-    </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <h2 class="fade-in">Technical Expertise</h2>
+        <div class="skills-grid">
+            <div class="skill-card fade-in">
+                <span class="skill-icon">🧠</span>
+                <h3>Machine Learning</h3>
+                <p>Deep Learning, Neural Networks, AWS Neuron, TensorFlow, PyTorch, Model Optimization</p>
+            </div>
+            <div class="skill-card fade-in">
+                <span class="skill-icon">☁️</span>
+                <h3>Cloud Architecture</h3>
+                <p>AWS Services, Distributed Systems, Microservices, Container Orchestration, Serverless</p>
+            </div>
+            <div class="skill-card fade-in">
+                <span class="skill-icon">⚡</span>
+                <h3>High Performance Computing</h3>
+                <p>GPU/TPU Optimization, Parallel Processing, Custom Silicon, Performance Tuning</p>
+            </div>
+            <div class="skill-card fade-in">
+                <span class="skill-icon">🔍</span>
+                <h3>Search & Analytics</h3>
+                <p>Elasticsearch, Data Processing, Search Algorithms, Real-time Analytics</p>
+            </div>
+            <div class="skill-card fade-in">
+                <span class="skill-icon">🏗️</span>
+                <h3>System Design</h3>
+                <p>Large-scale Architecture, Scalability, Reliability Engineering, Design Patterns</p>
+            </div>
+            <div class="skill-card fade-in">
+                <span class="skill-icon">🚀</span>
+                <h3>Innovation</h3>
+                <p>Research & Development, Prototyping, Open Source, Technology Leadership</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experience Timeline -->
+    <section id="experience" class="section">
+        <h2 class="fade-in">Professional Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item fade-in">
+                <div class="timeline-content">
+                    <h3>Senior Software Engineer - Amazon</h3>
+                    <p><strong>AWS Neuron Team</strong></p>
+                    <p>Leading ML infrastructure development for custom silicon, optimizing neural networks for cloud deployment</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-content">
+                    <h3>ML Infrastructure Specialist</h3>
+                    <p>Building scalable systems for deep learning model training and inference at enterprise scale</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-content">
+                    <h3>Open Source Contributor</h3>
+                    <p>Contributing to ML frameworks, system design solutions, and developer tools</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="glass-card fade-in">
+            <div class="gif-section">
+                <div style="flex: 2;">
+                    <h3 style="color: white; margin-bottom: 20px;">Innovation in Action</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.7;">
+                        At Amazon, I work on cutting-edge projects that push the boundaries of what's possible in machine learning. 
+                        From optimizing neural networks for custom hardware to building infrastructure that scales to millions of requests, 
+                        every day brings new challenges and opportunities to innovate.
+                    </p>
+                </div>
+                <div class="gif-container">
+                    <div class="gif-placeholder">
+                        ⚡ Performance Metrics
+                        <br>
+                        <small>(Dashboard Animation)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 style="color: white; margin-bottom: 20px;">Let's Build the Future Together</h2>
+        <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.2rem;">
+            Interested in discussing ML innovations, system architecture, or collaboration opportunities?
+        </p>
+        <div class="contact-links">
+            <a href="https://github.com/rajkthakur" target="_blank" class="contact-link">
+                <span>💻</span> GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/raj-thakur-39756838" target="_blank" class="contact-link">
+                <span>💼</span> LinkedIn
+            </a>
+            <a href="mailto:rajanand.thakur@gmail.com" class="contact-link">
+                <span>📧</span> Email
+            </a>
+        </div>
+    </section>
+    
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particles.appendChild(particle);
+            }
+        }
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Initialize particles
+        createParticles();
+        
+        // Add mouse movement parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const particles = document.querySelectorAll('.particle');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            particles.forEach((particle, index) => {
+                const speed = (index % 5 + 1) * 0.5;
+                const xPos = (x - 0.5) * speed;
+                const yPos = (y - 0.5) * speed;
+                particle.style.transform = `translate(${xPos}px, ${yPos}px)`;
+            });
+        });
+    </script>
 </body>
 </html>
