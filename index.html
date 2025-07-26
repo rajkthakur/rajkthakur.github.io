@@ -331,30 +331,199 @@
             color: white;
         }
         
-        /* Reader mode specific styles */
+        /* Reader mode specific overrides to ensure text visibility */
+        [data-theme="reader"] {
+            color: #1f2937;
+        }
+        
         [data-theme="reader"] .glass-card {
+            background: #ffffff;
+            color: #1f2937;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             border: 1px solid #e5e7eb;
         }
         
         [data-theme="reader"] .skill-card {
+            background: #f8fafc;
+            color: #1f2937;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        [data-theme="reader"] .skill-card h3 {
+            color: #1f2937;
+        }
+        
+        [data-theme="reader"] .skill-card p {
+            color: #6b7280;
         }
         
         [data-theme="reader"] .timeline-content {
+            background: #ffffff;
+            color: #1f2937;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         
+        [data-theme="reader"] .company-info h3 {
+            color: #1f2937;
+        }
+        
+        [data-theme="reader"] .role-item {
+            background: #f8fafc;
+        }
+        
+        [data-theme="reader"] .role-item h4 {
+            color: #1f2937;
+        }
+        
+        [data-theme="reader"] .role-description {
+            color: #6b7280;
+        }
+        
+        [data-theme="reader"] .achievements li {
+            color: #6b7280;
+        }
+        
         [data-theme="reader"] .blog-card {
+            background: #f8fafc;
+            color: #1f2937;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
         
+        [data-theme="reader"] .blog-content {
+            color: #1f2937;
+        }
+        
+        [data-theme="reader"] .blog-card h3 {
+            color: #1f2937;
+        }
+        
+        [data-theme="reader"] .blog-card p {
+            color: #6b7280;
+        }
+        
+        [data-theme="reader"] .section h2 {
+            color: #1f2937;
+        }
+        
+        [data-theme="reader"] .hero h1 {
+            background: linear-gradient(45deg, #1f2937, #374151);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        [data-theme="reader"] .hero p {
+            color: #1f2937;
+        }
+        
+        [data-theme="reader"] .theme-toggle {
+            background: #ffffff;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
+        }
+        
+        [data-theme="reader"] .theme-menu {
+            background: #ffffff;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
+        }
+        
+        [data-theme="reader"] .theme-option {
+            color: #1f2937;
+        }
+        
+        [data-theme="reader"] .theme-option:hover {
+            background: #f8fafc;
+        }
+        
+        [data-theme="reader"] .nav {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #e5e7eb;
+        }
+            color: #6b7280;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        [data-theme="reader"] .nav-item:hover {
+            color: #1f2937;
+            background: #ffffff;
+        }
+        
+        [data-theme="reader"] .nav-item.active {
+            color: white;
+            background: #2563eb;
+        }
+        
+        [data-theme="reader"] .contact {
+            background: #f8fafc;
+            color: #1f2937;
+        }
+        
+        [data-theme="reader"] .contact h2 {
+            color: #1f2937;
+        }
+        
+        [data-theme="reader"] .contact p {
+            color: #6b7280;
+        }
+        
+        [data-theme="reader"] .contact-link {
+            color: #1f2937;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+        }
+        
+        [data-theme="reader"] .contact-link:hover {
+            background: #2563eb;
+            color: white;
+        }
+        
         [data-theme="reader"] .bg-animation {
-            opacity: 0.3;
+            opacity: 0.1;
         }
         
         [data-theme="reader"] .particles {
             display: none;
+        }
+        
+        [data-theme="reader"] .duration {
+            color: #2563eb;
+        }
+        
+        [data-theme="reader"] .role-duration {
+            color: #2563eb;
+        }
+        
+        [data-theme="reader"] .location {
+            color: #6b7280;
+        }
+        
+        [data-theme="reader"] .blog-date {
+            color: #2563eb;
+        }
+        
+        [data-theme="reader"] .blog-category {
+            background: #f1f5f9;
+            color: #1f2937;
+        }
+        
+        [data-theme="reader"] .blog-publication {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        
+        [data-theme="reader"] .blog-link {
+            color: #2563eb;
+        }
+        
+        [data-theme="reader"] .blog-link:hover {
+            color: #1e40af;
+        }
+        
+        [data-theme="reader"] .skill-tag {
+            background: #dbeafe;
+            color: #2563eb;
+            border: 1px solid #bfdbfe;
         }
         .nav {
             position: fixed;
