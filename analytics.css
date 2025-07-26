@@ -248,6 +248,9 @@
         max-height: 70vh;
         bottom: 4rem;
         top: auto;
+        background: var(--bg-secondary);
+        border: 2px solid var(--border-primary);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     }
     
     .analytics-grid {
