@@ -286,6 +286,17 @@ body {
     margin: 0 auto;
 }
 
+.section h2 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    margin-bottom: 3rem;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .section-header {
     text-align: center;
     margin-bottom: 4rem;
@@ -301,16 +312,6 @@ body {
     color: var(--text-secondary);
     margin-bottom: 1rem;
     font-weight: 500;
-}
-
-.section h2 {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    font-weight: 700;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 }
 
 .section-description {
