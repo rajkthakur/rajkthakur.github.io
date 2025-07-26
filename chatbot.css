@@ -208,21 +208,29 @@
 @media (max-width: 768px) {
     .chat-widget {
         bottom: 1rem;
-        right: 1rem;
+        left: 1rem;
+        right: auto;
     }
     
     .chat-container {
         width: calc(100vw - 2rem);
         max-width: 350px;
         height: 450px;
+        left: 0;
+        right: auto;
     }
     
     .chat-toggle {
-        padding: 0.75rem 1.25rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
     }
     
     .chat-text {
         display: none;
+    }
+    
+    .chat-icon {
+        font-size: 1rem;
     }
 }
 
