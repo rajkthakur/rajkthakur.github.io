@@ -17,63 +17,27 @@
             --primary: #2563eb;
             --secondary: #1e40af;
             --accent: #0ea5e9;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --gradient: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #0ea5e9 100%);
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
             --bg-primary: #0f172a;
             --bg-secondary: rgba(255, 255, 255, 0.1);
             --card-bg: rgba(255, 255, 255, 0.08);
-            --text-color: white;
+            --text-color: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.8);
+            --border-color: rgba(255, 255, 255, 0.2);
+            --gradient: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #0ea5e9 100%);
         }
         
-        /* Theme Variables */
-        [data-theme="neural"] {
-            --primary: #ff6b6b;
-            --secondary: #4ecdc4;
-            --accent: #45b7d1;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            --bg-primary: #1a1a2e;
-            --card-bg: rgba(255, 255, 255, 0.1);
-        }
-        
-        [data-theme="matrix"] {
-            --primary: #00ff41;
-            --secondary: #008f11;
-            --accent: #39ff14;
-            --gradient: linear-gradient(135deg, #0d7377 0%, #14a085 50%, #39ff14 100%);
-            --bg-primary: #0d1117;
-            --card-bg: rgba(0, 255, 65, 0.1);
-        }
-        
+        /* Reader Mode Theme */
         [data-theme="reader"] {
-            --primary: #374151;
-            --secondary: #4b5563;
-            --accent: #6366f1;
-            --gradient: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 50%, #e5e7eb 100%);
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #0ea5e9;
             --bg-primary: #ffffff;
-            --bg-secondary: rgba(0, 0, 0, 0.05);
-            --card-bg: rgba(0, 0, 0, 0.02);
+            --bg-secondary: #f8fafc;
+            --card-bg: #ffffff;
             --text-color: #1f2937;
-        }
-        
-        [data-theme="cyberpunk"] {
-            --primary: #ff0080;
-            --secondary: #00ffff;
-            --accent: #ffff00;
-            --gradient: linear-gradient(135deg, #ff0080 0%, #7928ca 50%, #00ffff 100%);
-            --bg-primary: #0a0a0a;
-            --card-bg: rgba(255, 0, 128, 0.1);
-        }
-        
-        [data-theme="deep-learning"] {
-            --primary: #8b5cf6;
-            --secondary: #a855f7;
-            --accent: #06b6d4;
-            --gradient: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #06b6d4 100%);
-            --bg-primary: #1e1b4b;
-            --card-bg: rgba(139, 92, 246, 0.1);
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+            --gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
         }
         
         body {
@@ -146,7 +110,7 @@
             border-radius: 50%;
             background: var(--card-bg);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--border-color);
             color: var(--text-color);
             cursor: pointer;
             display: flex;
@@ -160,6 +124,7 @@
         .theme-toggle:hover {
             transform: scale(1.1);
             background: var(--primary);
+            color: white;
         }
         
         .theme-menu {
@@ -170,13 +135,13 @@
             backdrop-filter: blur(20px);
             border-radius: 15px;
             padding: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--border-color);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s ease;
-            min-width: 200px;
+            min-width: 160px;
         }
         
         .theme-menu.active {
@@ -189,15 +154,16 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
             color: var(--text-color);
+            font-weight: 500;
         }
         
         .theme-option:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--bg-secondary);
         }
         
         .theme-option.active {
@@ -206,29 +172,31 @@
         }
         
         .theme-preview {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid var(--border-color);
         }
         
-        .default-preview { background: linear-gradient(45deg, #2563eb, #0ea5e9); }
-        .neural-preview { background: linear-gradient(45deg, #ff6b6b, #4ecdc4); }
-        .matrix-preview { background: linear-gradient(45deg, #00ff41, #39ff14); }
-        .reader-preview { background: linear-gradient(45deg, #374151, #6366f1); }
-        .cyberpunk-preview { background: linear-gradient(45deg, #ff0080, #00ffff); }
-        .deep-learning-preview { background: linear-gradient(45deg, #8b5cf6, #06b6d4); }
+        .general-preview { 
+            background: linear-gradient(45deg, #2563eb, #0ea5e9); 
+        }
+        .reader-preview { 
+            background: linear-gradient(45deg, #ffffff, #f1f5f9);
+            border-color: #d1d5db;
+        }
         
-        /* Update existing styles to use theme variables */
+        /* Update all components to use proper theme variables */
         .glass-card {
             background: var(--card-bg);
             backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 40px;
             margin: 40px 0;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--border-color);
             transition: all 0.3s ease;
             color: var(--text-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         
         .skill-card {
@@ -238,9 +206,20 @@
             padding: 30px;
             text-align: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
+        }
+        
+        .skill-card h3 {
+            color: var(--text-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .skill-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
         
         .timeline-content {
@@ -248,10 +227,34 @@
             backdrop-filter: blur(15px);
             padding: 30px;
             border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid var(--border-color);
             color: var(--text-color);
             position: relative;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .company-info h3 {
+            color: var(--text-color);
+            margin: 0;
+            font-size: 1.3rem;
+        }
+        
+        .role-item h4 {
+            color: var(--text-color);
+            margin: 0 0 8px 0;
+            font-size: 1.1rem;
+        }
+        
+        .role-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+        
+        .achievements li {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            line-height: 1.5;
         }
         
         .blog-card {
@@ -260,7 +263,7 @@
             border-radius: 15px;
             overflow: hidden;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
             position: relative;
         }
         
@@ -269,7 +272,24 @@
             color: var(--text-color);
         }
         
+        .blog-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            color: var(--text-color);
+        }
+        
+        .blog-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
         .nav-item {
+            color: var(--text-secondary);
+        }
+        
+        .nav-item:hover {
             color: var(--text-color);
         }
         
@@ -278,7 +298,7 @@
         }
         
         .hero h1 {
-            background: linear-gradient(45deg, var(--text-color), rgba(255, 255, 255, 0.8));
+            background: linear-gradient(45deg, var(--text-color), var(--text-secondary));
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -286,6 +306,55 @@
         
         .hero p {
             color: var(--text-color);
+        }
+        
+        .contact {
+            color: var(--text-color);
+        }
+        
+        .contact h2 {
+            color: var(--text-color);
+        }
+        
+        .contact p {
+            color: var(--text-secondary);
+        }
+        
+        .contact-link {
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+        
+        .contact-link:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Reader mode specific styles */
+        [data-theme="reader"] .glass-card {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+        
+        [data-theme="reader"] .skill-card {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        [data-theme="reader"] .timeline-content {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        [data-theme="reader"] .blog-card {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        [data-theme="reader"] .bg-animation {
+            opacity: 0.3;
+        }
+        
+        [data-theme="reader"] .particles {
+            display: none;
         }
         .nav {
             position: fixed;
@@ -1263,18 +1332,18 @@
             
             .theme-menu {
                 top: 50px;
-                min-width: 160px;
+                min-width: 140px;
                 padding: 10px;
             }
             
             .theme-option {
-                padding: 8px;
+                padding: 10px;
                 font-size: 0.9rem;
             }
             
             .theme-preview {
-                width: 16px;
-                height: 16px;
+                width: 20px;
+                height: 20px;
             }
             
             /* Particle adjustments for mobile */
@@ -1384,32 +1453,16 @@
     <!-- Theme Switcher -->
     <div class="theme-switcher">
         <button class="theme-toggle" id="themeToggle">
-            <span class="theme-icon">🎨</span>
+            <span class="theme-icon">🌙</span>
         </button>
         <div class="theme-menu" id="themeMenu">
-            <div class="theme-option" data-theme="default">
-                <div class="theme-preview default-preview"></div>
-                <span>Default</span>
-            </div>
-            <div class="theme-option" data-theme="neural">
-                <div class="theme-preview neural-preview"></div>
-                <span>Neural</span>
-            </div>
-            <div class="theme-option" data-theme="matrix">
-                <div class="theme-preview matrix-preview"></div>
-                <span>Matrix</span>
+            <div class="theme-option" data-theme="general">
+                <div class="theme-preview general-preview"></div>
+                <span>General</span>
             </div>
             <div class="theme-option" data-theme="reader">
                 <div class="theme-preview reader-preview"></div>
-                <span>Reader</span>
-            </div>
-            <div class="theme-option" data-theme="cyberpunk">
-                <div class="theme-preview cyberpunk-preview"></div>
-                <span>Cyberpunk</span>
-            </div>
-            <div class="theme-option" data-theme="deep-learning">
-                <div class="theme-preview deep-learning-preview"></div>
-                <span>Deep Learning</span>
+                <span>Reader Mode</span>
             </div>
         </div>
     </div>
@@ -1849,7 +1902,7 @@
         const themeOptions = document.querySelectorAll('.theme-option');
         
         // Load saved theme
-        const savedTheme = localStorage.getItem('website-theme') || 'default';
+        const savedTheme = localStorage.getItem('website-theme') || 'general';
         document.documentElement.setAttribute('data-theme', savedTheme);
         updateActiveTheme(savedTheme);
         
@@ -1891,14 +1944,10 @@
         function updateThemeIcon(theme) {
             const themeIcon = document.querySelector('.theme-icon');
             const icons = {
-                'default': '🎨',
-                'neural': '🧠',
-                'matrix': '💚',
-                'reader': '📖',
-                'cyberpunk': '🌆',
-                'deep-learning': '🔮'
+                'general': '🌙',
+                'reader': '📖'
             };
-            themeIcon.textContent = icons[theme] || '🎨';
+            themeIcon.textContent = icons[theme] || '🌙';
         }
         
         // Initialize theme icon
