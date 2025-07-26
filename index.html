@@ -370,6 +370,119 @@
             left: -60px;
         }
         
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .blog-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .blog-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blog-placeholder {
+            font-size: 4rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .blog-content {
+            padding: 25px;
+            color: white;
+        }
+        
+        .blog-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .blog-date {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .blog-category {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .blog-publication {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .blog-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            color: white;
+        }
+        
+        .blog-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .blog-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .blog-link:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
         /* Contact Section */
         .contact {
             text-align: center;
@@ -439,6 +552,10 @@
             .skills-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
         }
         
         /* Scroll animations */
@@ -466,6 +583,7 @@
         <a href="#about" class="nav-item">About</a>
         <a href="#skills" class="nav-item">Skills</a>
         <a href="#experience" class="nav-item">Experience</a>
+        <a href="#blog" class="nav-item">Blog</a>
         <a href="#contact" class="nav-item">Contact</a>
     </nav>
     
@@ -588,6 +706,126 @@
         </div>
     </section>
     
+    <!-- Blog Section -->
+    <section id="blog" class="section">
+        <h2 class="fade-in">Technical Insights & Articles</h2>
+        <div class="glass-card fade-in">
+            <div class="gif-section">
+                <div style="flex: 2;">
+                    <h3 style="color: white; margin-bottom: 20px;">Sharing Knowledge Through Writing</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 20px;">
+                        I regularly write about system design, machine learning, software engineering, and technology trends. 
+                        My articles have been published in various technical publications and have helped thousands of developers.
+                    </p>
+                    <a href="https://medium.com/@rajthakur_78149" target="_blank" class="cta-button" style="display: inline-block; margin-top: 10px;">
+                        Read All Articles on Medium
+                    </a>
+                </div>
+                <div class="gif-container">
+                    <div class="gif-placeholder">
+                        📝 Writing Animation
+                        <br>
+                        <small>(Blog/Writing GIF)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="blog-grid">
+            <article class="blog-card fade-in">
+                <div class="blog-image">
+                    <div class="blog-placeholder">📱</div>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">Mar 26, 2023</span>
+                        <span class="blog-category">UX Design</span>
+                    </div>
+                    <h3>Split Bill App Design: A Guide to Creating a Seamless Splitwise-like Experience</h3>
+                    <p>If you are someone living with roommates who shares the cost of utilities, groceries, and rent, you may need to manually track each expense...</p>
+                    <a href="https://medium.com/@rajthakur_78149/split-bill-app-design-a-guide-to-creating-a-seamless-splitwise-like-experience-f0a8539d6ccd" target="_blank" class="blog-link">Read More →</a>
+                </div>
+            </article>
+
+            <article class="blog-card fade-in">
+                <div class="blog-image">
+                    <div class="blog-placeholder">💰</div>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">Jan 24, 2023</span>
+                        <span class="blog-category">Finance</span>
+                    </div>
+                    <h3>BII — Basic Investment Information</h3>
+                    <p>Few basic formulas and ratio to keep track of while investing in stock. Essential knowledge for making informed investment decisions.</p>
+                    <a href="https://medium.com/@rajthakur_78149/bii-basic-investment-information-ef4ecaef2f36" target="_blank" class="blog-link">Read More →</a>
+                </div>
+            </article>
+
+            <article class="blog-card fade-in">
+                <div class="blog-image">
+                    <div class="blog-placeholder">🔧</div>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">Jan 23, 2023</span>
+                        <span class="blog-category">Software Engineering</span>
+                    </div>
+                    <h3>DI Frameworks — Spring, Guice and Dagger</h3>
+                    <p>Dagger, Guice, and Spring are all dependency injection (DI) frameworks designed to help manage dependencies in large-scale applications.</p>
+                    <a href="https://medium.com/@rajthakur_78149/di-frameworks-spring-guice-and-dagger-part-923762684ebf" target="_blank" class="blog-link">Read More →</a>
+                </div>
+            </article>
+
+            <article class="blog-card fade-in">
+                <div class="blog-image">
+                    <div class="blog-placeholder">🏗️</div>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">Jan 9, 2023</span>
+                        <span class="blog-category">System Design</span>
+                    </div>
+                    <h3>System Design Interview Primer</h3>
+                    <p>Here are some tips for answering high-level system design questions in a technical interview. Essential guide for software engineers.</p>
+                    <a href="https://medium.com/@rajthakur_78149/system-design-interview-primer-eed461765a18" target="_blank" class="blog-link">Read More →</a>
+                </div>
+            </article>
+
+            <article class="blog-card fade-in">
+                <div class="blog-image">
+                    <div class="blog-placeholder">🐦</div>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">Jan 7, 2023</span>
+                        <span class="blog-category">System Design</span>
+                        <span class="blog-publication">Software System Design</span>
+                    </div>
+                    <h3>Twitter High Level Architecture</h3>
+                    <p>Twitter is a social media platform that allows users to send and receive short messages called "tweets." Deep dive into its architecture.</p>
+                    <a href="https://medium.com/software-system-design/twitter-high-level-architecture-eadb94e5ae4b" target="_blank" class="blog-link">Read More →</a>
+                </div>
+            </article>
+
+            <article class="blog-card fade-in">
+                <div class="blog-image">
+                    <div class="blog-placeholder">🏨</div>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">Jul 3, 2020</span>
+                        <span class="blog-category">System Design</span>
+                        <span class="blog-publication">Software System Design</span>
+                    </div>
+                    <h3>Price Surge During Online Hotel Booking</h3>
+                    <p>Many of us would have faced this situation while planning a vacation and trying to book a room. Understanding dynamic pricing systems.</p>
+                    <a href="https://medium.com/software-system-design/price-surge-during-online-hotel-booking-ff060c33b2b6" target="_blank" class="blog-link">Read More →</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <h2 style="color: white; margin-bottom: 20px;">Let's Build the Future Together</h2>
@@ -600,6 +838,9 @@
             </a>
             <a href="https://www.linkedin.com/in/raj-thakur-39756838" target="_blank" class="contact-link">
                 <span>💼</span> LinkedIn
+            </a>
+            <a href="https://medium.com/@rajthakur_78149" target="_blank" class="contact-link">
+                <span>📝</span> Medium
             </a>
             <a href="mailto:rajanand.thakur@gmail.com" class="contact-link">
                 <span>📧</span> Email
