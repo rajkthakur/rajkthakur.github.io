@@ -22,17 +22,70 @@
             --gradient: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #0ea5e9 100%);
             --text-primary: #1e293b;
             --text-secondary: #64748b;
+            --bg-primary: #0f172a;
+            --bg-secondary: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --text-color: white;
+        }
+        
+        /* Theme Variables */
+        [data-theme="neural"] {
+            --primary: #ff6b6b;
+            --secondary: #4ecdc4;
+            --accent: #45b7d1;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --bg-primary: #1a1a2e;
+            --card-bg: rgba(255, 255, 255, 0.1);
+        }
+        
+        [data-theme="matrix"] {
+            --primary: #00ff41;
+            --secondary: #008f11;
+            --accent: #39ff14;
+            --gradient: linear-gradient(135deg, #0d7377 0%, #14a085 50%, #39ff14 100%);
+            --bg-primary: #0d1117;
+            --card-bg: rgba(0, 255, 65, 0.1);
+        }
+        
+        [data-theme="reader"] {
+            --primary: #374151;
+            --secondary: #4b5563;
+            --accent: #6366f1;
+            --gradient: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 50%, #e5e7eb 100%);
+            --bg-primary: #ffffff;
+            --bg-secondary: rgba(0, 0, 0, 0.05);
+            --card-bg: rgba(0, 0, 0, 0.02);
+            --text-color: #1f2937;
+        }
+        
+        [data-theme="cyberpunk"] {
+            --primary: #ff0080;
+            --secondary: #00ffff;
+            --accent: #ffff00;
+            --gradient: linear-gradient(135deg, #ff0080 0%, #7928ca 50%, #00ffff 100%);
+            --bg-primary: #0a0a0a;
+            --card-bg: rgba(255, 0, 128, 0.1);
+        }
+        
+        [data-theme="deep-learning"] {
+            --primary: #8b5cf6;
+            --secondary: #a855f7;
+            --accent: #06b6d4;
+            --gradient: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #06b6d4 100%);
+            --bg-primary: #1e1b4b;
+            --card-bg: rgba(139, 92, 246, 0.1);
         }
         
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            color: var(--dark);
+            color: var(--text-color);
             overflow-x: hidden;
-            background: var(--dark);
+            background: var(--bg-primary);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             touch-action: manipulation;
+            transition: all 0.3s ease;
         }
         
         /* Animated Background */
@@ -43,9 +96,10 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(-45deg, #1e40af, #2563eb, #0ea5e9, #1e293b);
+            background: var(--gradient);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
+            transition: all 0.3s ease;
         }
         
         @keyframes gradientShift {
@@ -78,7 +132,161 @@
             50% { transform: translateY(-20px) rotate(180deg); }
         }
         
-        /* Navigation */
+        /* Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 1001;
+        }
+        
+        .theme-toggle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+        }
+        
+        .theme-menu {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+        
+        .theme-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+        }
+        
+        .theme-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .theme-option.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .theme-preview {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .default-preview { background: linear-gradient(45deg, #2563eb, #0ea5e9); }
+        .neural-preview { background: linear-gradient(45deg, #ff6b6b, #4ecdc4); }
+        .matrix-preview { background: linear-gradient(45deg, #00ff41, #39ff14); }
+        .reader-preview { background: linear-gradient(45deg, #374151, #6366f1); }
+        .cyberpunk-preview { background: linear-gradient(45deg, #ff0080, #00ffff); }
+        .deep-learning-preview { background: linear-gradient(45deg, #8b5cf6, #06b6d4); }
+        
+        /* Update existing styles to use theme variables */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            color: var(--text-color);
+        }
+        
+        .skill-card {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .timeline-content {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-color);
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .blog-card {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .blog-content {
+            padding: 25px;
+            color: var(--text-color);
+        }
+        
+        .nav-item {
+            color: var(--text-color);
+        }
+        
+        .section h2 {
+            color: var(--text-color);
+        }
+        
+        .hero h1 {
+            background: linear-gradient(45deg, var(--text-color), rgba(255, 255, 255, 0.8));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            color: var(--text-color);
+        }
         .nav {
             position: fixed;
             top: 30px;
@@ -1042,6 +1250,33 @@
                 justify-content: center;
             }
             
+            .theme-switcher {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .theme-toggle {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .theme-menu {
+                top: 50px;
+                min-width: 160px;
+                padding: 10px;
+            }
+            
+            .theme-option {
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-preview {
+                width: 16px;
+                height: 16px;
+            }
+            
             /* Particle adjustments for mobile */
             .particles {
                 display: none;
@@ -1146,6 +1381,39 @@
     </style>
 </head>
 <body>
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button class="theme-toggle" id="themeToggle">
+            <span class="theme-icon">🎨</span>
+        </button>
+        <div class="theme-menu" id="themeMenu">
+            <div class="theme-option" data-theme="default">
+                <div class="theme-preview default-preview"></div>
+                <span>Default</span>
+            </div>
+            <div class="theme-option" data-theme="neural">
+                <div class="theme-preview neural-preview"></div>
+                <span>Neural</span>
+            </div>
+            <div class="theme-option" data-theme="matrix">
+                <div class="theme-preview matrix-preview"></div>
+                <span>Matrix</span>
+            </div>
+            <div class="theme-option" data-theme="reader">
+                <div class="theme-preview reader-preview"></div>
+                <span>Reader</span>
+            </div>
+            <div class="theme-option" data-theme="cyberpunk">
+                <div class="theme-preview cyberpunk-preview"></div>
+                <span>Cyberpunk</span>
+            </div>
+            <div class="theme-option" data-theme="deep-learning">
+                <div class="theme-preview deep-learning-preview"></div>
+                <span>Deep Learning</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Animated Background -->
     <div class="bg-animation"></div>
     
@@ -1178,7 +1446,7 @@
             <div class="gif-section">
                 <div class="gif-container">
                     <div class="real-gif">
-                        <img src="https://media.giphy.com/media/3oKIPEqDGUULpEU0aQ/giphy.gif" alt="Neural Network Training Animation" loading="lazy" onerror="this.parentElement.innerHTML='<div class=&quot;gif-placeholder ai-animation&quot;></div>'">
+                        <img src="https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif" alt="Neural Network Training Visualization" loading="lazy" onerror="this.parentElement.innerHTML='<div class=&quot;gif-placeholder ai-animation&quot;></div>'">
                     </div>
                 </div>
                 <div style="flex: 2;">
@@ -1411,7 +1679,7 @@
                 </div>
                 <div class="gif-container">
                     <div class="real-gif">
-                        <img src="https://media.giphy.com/media/l46Cy1rHbQ92uuLXa/giphy.gif" alt="Performance Dashboard Animation" loading="lazy" onerror="this.parentElement.innerHTML='<div class=&quot;gif-placeholder dashboard-animation&quot;></div>'">
+                        <img src="https://media.giphy.com/media/l46CyJnLFTdqMjAWY/giphy.gif" alt="ML Model Training and Optimization" loading="lazy" onerror="this.parentElement.innerHTML='<div class=&quot;gif-placeholder dashboard-animation&quot;></div>'">
                     </div>
                 </div>
             </div>
@@ -1435,7 +1703,7 @@
                 </div>
                 <div class="gif-container">
                     <div class="real-gif">
-                        <img src="https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif" alt="Writing Animation" loading="lazy" onerror="this.parentElement.innerHTML='<div class=&quot;gif-placeholder writing-animation&quot;></div>'">
+                        <img src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif" alt="Coding and Development Animation" loading="lazy" onerror="this.parentElement.innerHTML='<div class=&quot;gif-placeholder writing-animation&quot;></div>'">
                     </div>
                 </div>
             </div>
@@ -1574,6 +1842,67 @@
                 particles.appendChild(particle);
             }
         }
+        
+        // Theme switching functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeMenu = document.getElementById('themeMenu');
+        const themeOptions = document.querySelectorAll('.theme-option');
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('website-theme') || 'default';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateActiveTheme(savedTheme);
+        
+        // Toggle theme menu
+        themeToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            themeMenu.classList.toggle('active');
+        });
+        
+        // Close theme menu when clicking outside
+        document.addEventListener('click', () => {
+            themeMenu.classList.remove('active');
+        });
+        
+        // Theme option selection
+        themeOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const theme = option.getAttribute('data-theme');
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('website-theme', theme);
+                updateActiveTheme(theme);
+                themeMenu.classList.remove('active');
+                
+                // Update theme icon based on selected theme
+                updateThemeIcon(theme);
+            });
+        });
+        
+        function updateActiveTheme(theme) {
+            themeOptions.forEach(option => {
+                option.classList.remove('active');
+                if (option.getAttribute('data-theme') === theme) {
+                    option.classList.add('active');
+                }
+            });
+        }
+        
+        function updateThemeIcon(theme) {
+            const themeIcon = document.querySelector('.theme-icon');
+            const icons = {
+                'default': '🎨',
+                'neural': '🧠',
+                'matrix': '💚',
+                'reader': '📖',
+                'cyberpunk': '🌆',
+                'deep-learning': '🔮'
+            };
+            themeIcon.textContent = icons[theme] || '🎨';
+        }
+        
+        // Initialize theme icon
+        updateThemeIcon(savedTheme);
         
         // Smooth scrolling for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
