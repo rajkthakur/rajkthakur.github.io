@@ -224,14 +224,30 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .analytics-dashboard {
-        top: 1rem;
+        bottom: 1rem;
         right: 1rem;
+        top: auto;
+    }
+    
+    .analytics-toggle {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .analytics-toggle .analytics-text {
+        display: none;
+    }
+    
+    .analytics-toggle .analytics-icon {
+        font-size: 1rem;
     }
     
     .analytics-panel {
         width: calc(100vw - 2rem);
         max-width: 350px;
         max-height: 70vh;
+        bottom: 4rem;
+        top: auto;
     }
     
     .analytics-grid {
