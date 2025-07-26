@@ -54,19 +54,52 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Simple scroll handler
+    // Simple scroll handler - Fixed for actual layout
     function handleScroll() {
-        const scrollPos = window.scrollY + 200;
+        const scrollPos = window.scrollY;
+        const windowHeight = window.innerHeight;
         
+        console.log('Scroll position:', scrollPos);
+        
+        // Account for hero section (100vh) and section padding (8rem = 128px)
         let activeSection = null;
+        
+        // If we're in the hero area (first 100vh), don't highlight anything
+        if (scrollPos < windowHeight * 0.8) {
+            console.log('In hero area, no active section');
+            navItems.forEach(nav => {
+                nav.classList.remove('active');
+                nav.style.backgroundColor = '';
+                nav.style.color = '';
+            });
+            return;
+        }
+        
+        // Check each section
         sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
             
-            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+            console.log(`Section ${section.id}:`, {
+                offsetTop: sectionTop,
+                height: sectionHeight,
+                rectTop: rect.top,
+                rectBottom: rect.bottom
+            });
+            
+            // A section is active if it's in the upper half of the viewport
+            if (rect.top <= windowHeight * 0.3 && rect.bottom >= windowHeight * 0.3) {
                 activeSection = section.id;
+                console.log('Active section found:', activeSection);
             }
         });
+        
+        // If we're near the bottom, activate the last section
+        if (scrollPos + windowHeight >= document.documentElement.scrollHeight - 100) {
+            activeSection = 'contact';
+            console.log('Near bottom, activating contact');
+        }
         
         if (activeSection) {
             setActiveNav(activeSection);
@@ -105,10 +138,32 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('Navigation setup complete');
     
-    // Global test function
+    // Global test functions
     window.testNav = function(sectionId) {
         setActiveNav(sectionId);
     };
     
-    console.log('Test with: testNav("about")');
+    window.checkScroll = function() {
+        const scrollPos = window.scrollY;
+        const windowHeight = window.innerHeight;
+        console.log('=== SCROLL DEBUG ===');
+        console.log('Scroll position:', scrollPos);
+        console.log('Window height:', windowHeight);
+        console.log('Hero threshold (80%):', windowHeight * 0.8);
+        
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const sectionTop = section.offsetTop;
+            console.log(`${section.id}:`, {
+                offsetTop: sectionTop,
+                rectTop: rect.top,
+                rectBottom: rect.bottom,
+                inViewport: rect.top <= windowHeight * 0.3 && rect.bottom >= windowHeight * 0.3
+            });
+        });
+        
+        handleScroll();
+    };
+    
+    console.log('Test with: testNav("about") or checkScroll()');
 });
