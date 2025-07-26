@@ -14,6 +14,7 @@ class AnalyticsDashboard {
     }
     
     createDashboard() {
+        console.log('Creating analytics dashboard with Organizations section');
         const dashboardHTML = `
             <div id="analytics-dashboard" class="analytics-dashboard">
                 <div class="analytics-toggle" id="analyticsToggle">
@@ -75,6 +76,24 @@ class AnalyticsDashboard {
                         <div class="analytics-section">
                             <h4>⭐ Top Repositories</h4>
                             <div class="repo-list" id="topRepos">Loading...</div>
+                        </div>
+                        
+                        <div class="analytics-section">
+                            <h4>🏢 Organizations</h4>
+                            <div class="github-stats" id="orgStats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Amazon Web Services:</span>
+                                    <span class="stat-value">Senior ML Engineer</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">GitHub Orgs:</span>
+                                    <span class="stat-value" id="orgCount">Loading...</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Open Source:</span>
+                                    <span class="stat-value">Active Contributor</span>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="analytics-section">
