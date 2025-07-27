@@ -2,7 +2,7 @@
 
 This is my personal website hosted on GitHub Pages.
 
-🌐 **Live Site**: [https://rajkthakur.github.io](https://rajkthakur.github.io)
+🌐 **Live Site**: [https://rajkthakur.dev](https://rajkthakur.dev)
 
 ## About
 
