@@ -160,7 +160,7 @@ class AnalyticsDashboard {
             </div>
         `;
         
-        document.body.insertAdjacentHTML('beforeend', dashboardHTML);
+        //document.body.insertAdjacentHTML('beforeend', dashboardHTML);
     }
     
     bindEvents() {
