@@ -83,7 +83,7 @@ class SystemDesignAssistant {
             </div>
         `;
         
-        document.body.insertAdjacentHTML('beforeend', chatHTML);
+       // document.body.insertAdjacentHTML('beforeend', chatHTML);
     }
     
     bindEvents() {
