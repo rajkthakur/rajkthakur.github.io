@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raj Kumar Thakur — Resume</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1a1a1a;
+    line-height: 1.5;
+    background: #f0f0f0;
+  }
+
+  .page {
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0 auto;
+    background: white;
+    padding: 0.5in 0.6in;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; padding: 0.4in 0.5in; width: 100%; }
+    .no-print { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; }
+    .print-btn { display: none !important; }
+  }
+
+  @page {
+    size: letter;
+    margin: 0;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0a66c2;
+  }
+
+  .header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0a66c2;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .header .tagline {
+    font-size: 12px;
+    color: #444;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .header .contact {
+    font-size: 10px;
+    color: #666;
+  }
+
+  .header .contact a {
+    color: #0a66c2;
+    text-decoration: none;
+  }
+
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0a66c2;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid #d0d0d0;
+    padding-bottom: 3px;
+    margin-top: 14px;
+    margin-bottom: 8px;
+  }
+
+  .job {
+    margin-bottom: 10px;
+  }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2px;
+  }
+
+  .job-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+
+  .job-date {
+    font-size: 10px;
+    color: #666;
+    white-space: nowrap;
+  }
+
+  .job-company {
+    font-size: 10.5px;
+    color: #555;
+    font-style: italic;
+    margin-bottom: 4px;
+  }
+
+  .job-subtitle {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 5px;
+    margin-bottom: 2px;
+  }
+
+  ul {
+    padding-left: 16px;
+    margin-bottom: 2px;
+  }
+
+  li {
+    font-size: 10px;
+    color: #333;
+    margin-bottom: 2px;
+    line-height: 1.45;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 3px 10px;
+    font-size: 10px;
+  }
+
+  .skills-grid .label {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .skills-grid .value {
+    color: #444;
+  }
+
+  .edu-item {
+    margin-bottom: 6px;
+  }
+
+  .edu-item .edu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .edu-item .edu-title {
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .edu-item .edu-date {
+    font-size: 10px;
+    color: #666;
+  }
+
+  .edu-item .edu-school {
+    font-size: 10px;
+    color: #555;
+  }
+
+  .print-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 32px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    background: #0a66c2;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .print-btn:hover { background: #084e96; }
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">📄 Save as PDF / Print</button>
+
+<div class="page">
+  <div class="header">
+    <h1>Raj Kumar Thakur</h1>
+    <div class="tagline">Senior Software Development Engineer — ML Inference Optimization & Frameworks</div>
+    <div class="contact">
+      Cupertino, CA &nbsp;|&nbsp;
+      <a href="mailto:rajanand.thakur@gmail.com">rajanand.thakur@gmail.com</a> &nbsp;|&nbsp;
+      <a href="https://rajthakur.dev">rajthakur.dev</a> &nbsp;|&nbsp;
+      <a href="https://github.com/rajkthakur">github.com/rajkthakur</a>
+    </div>
+  </div>
+
+  <div class="summary" style="font-size:10px; color:#444; margin-bottom:6px; text-align:center;">
+    10+ years of experience in inference optimization, ML accelerator frameworks, and scalable serving platforms. Currently optimizing PyTorch, JAX, and vLLM inference performance on AWS custom silicon (Trainium/Inferentia) as part of the AWS Neuron SDK team.
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="section-title">Experience</div>
+
+  <!-- AWS Neuron -->
+  <div class="job">
+    <div class="job-header">
+      <span class="job-title">Senior Software Development Engineer — ML Frameworks & Inference</span>
+      <span class="job-date">Dec 2022 – Present</span>
+    </div>
+    <div class="job-company">AWS Neuron (Annapurna ML), Cupertino, CA</div>
+
+    <div class="job-subtitle">Disaggregated Inference (DI) & Inference Optimization — Technical Lead</div>
+    <ul>
+      <li>Architected and built disaggregated inference for vLLM on Neuron, enabling split prefill/decode across Trainium nodes using NIXL device-to-device KV cache transfers to minimize LLM serving latency.</li>
+      <li>Designed runtime batch operations API for KV cache transfers, achieving 2× throughput improvement; optimized EFA bandwidth utilization to 20/25 Gbps on Trn2 for inter-node tensor transfers.</li>
+      <li>Led DI enablement on next-gen Trainium — resolved EFA-to-Neuron device mapping differences requiring runtime-level changes for multi-node inference; profiled and tuned NIXL for small transfer optimization.</li>
+      <li>Drove DI readiness for product launches including xPyD multi-node configs and GPU+Trainium heterogeneous compute; validated on EKS production-stack.</li>
+      <li>Re-architected the NxDI backend from SPMD to MPMD execution model following native PyTorch support, enabling more flexible distributed inference topologies.</li>
+      <li>Enabling GPT-OSS on next-gen Trainium, driving framework and runtime integration for large-scale generative AI inference workloads.</li>
+      <li>Evaluated vLLM sleep mode for serverless inference optimization — enabling dynamic weight loading/unloading for cost-efficient serving and RLHF workloads.</li>
+    </ul>
+
+    <div class="job-subtitle">Managing PyTorch for Neuron & Inference Optimization</div>
+    <ul>
+      <li>Owned end-to-end PyTorch releases across the Neuron stack, managing builds, dependency coordination, and compatibility testing across 10+ packages for each new PyTorch version.</li>
+      <li>Managed the first "native" (non-XLA) PyTorch release for Neuron — coordinating torch-neuronx, NxDI, eager mode, and torch.compile pathways for optimized inference graph compilation.</li>
+      <li>Enabled parallel compilation for inference workloads, reducing model compilation time; implemented huge page support in runtime benchmarks for memory-optimized inference.</li>
+      <li>Diagnosed and resolved critical inference performance regressions, memory faults, and framework compatibility issues across PyTorch and XLA releases to maintain production stability.</li>
+    </ul>
+
+    <div class="job-subtitle">PJRT / JAX Architecture, HLO Optimization Tooling & vLLM</div>
+    <ul>
+      <li>Executed 3-part PJRT C-API modularization (6K–9.5K lines each), reducing build times and enabling independent testing; upgraded C-API 0.68→0.73 for JAX v0.7.0 inference support.</li>
+      <li>Built HLO graph drift detection tool from scratch — automatically identifies compiler-level inference regressions across framework upgrades by diffing HLO IR graphs, including NKI custom kernel ops.</li>
+      <li>Contributed to vLLM Neuron plugin and NxDI: EFA device mapping fixes, NIXL cleanup, multi-node MPI communication for distributed inference, and FX graph optimization passes.</li>
+      <li>Drove NKI kernel compatibility analysis to ensure optimized custom kernels migrate cleanly across Neuron hardware generations (Trn2→Trn3).</li>
+    </ul>
+  </div>
+
+  <!-- AWS SDE II — Billing + OpenSearch -->
+  <div class="job">
+    <div class="job-header">
+      <span class="job-title">Software Development Engineer II</span>
+      <span class="job-date">Jun 2020 – Nov 2022</span>
+    </div>
+    <div class="job-company">Amazon Web Services, Bangalore, India</div>
+
+    <div class="job-subtitle">AWS Billing — CuBE & Monetization Authority</div>
+    <ul>
+      <li>Designed and built Monetization Authority (MTZA) from scratch — Step Functions workflow engine automating RFP generation and delivery for enterprise billing across thousands of payers, driving $300M in free cash flow improvements.</li>
+      <li>Built payer classification system using BIDW Redshift queries; automated SPP payer mapping with ops-managed configuration, contributing to $100M in additional free cash flow recovery.</li>
+      <li>Designed a complex transfer billing system that simplified billing for third-party sellers on AWS and improved the security posture of third-party accounts — estimated to add $1.2B in annual revenue by 2027.</li>
+      <li>Built CuBE payer mapping APIs (Smithy/Lambda), distributed map scaling for Step Functions, RFP deduplication, and credits beginning balance pipelines.</li>
+      <li>Led JDK 17 migration across 8+ packages; led cross-functional teams of 6+ developers; authored PRFAQs and architectural documentation.</li>
+    </ul>
+
+    <div class="job-subtitle">AWS OpenSearch & CloudSearch</div>
+    <ul>
+      <li>Containerized data plane components of AWS OpenSearch using S3, ECR, Lambda, and CodeBuild.</li>
+      <li>Built automated node diagnostic and self-healing framework, reducing customer RCA tickets by 30%.</li>
+      <li>Designed Bastion infrastructure using VPC, Elastic IPs, NAT gateways; developed Safe Data Plane Deployment Service.</li>
+      <li>Root-caused high-impact customer cluster anomalies; drove LSE and outage scenarios to completion.</li>
+    </ul>
+  </div>
+
+  <!-- Grab -->
+  <div class="job">
+    <div class="job-header">
+      <span class="job-title">Senior Software Engineer, Backend</span>
+      <span class="job-date">Jul 2018 – Jun 2020</span>
+    </div>
+    <div class="job-company">Grab, Bangalore, India</div>
+    <ul>
+      <li>Scaled Settlement Platform from worker-based to event-driven architecture, achieving 60% performance improvement in merchant settlement using AWS Lambda.</li>
+      <li>Designed core post-payment processing unit for payment gateways and international merchants using Golang.</li>
+    </ul>
+  </div>
+
+  <!-- Yatra -->
+  <div class="job">
+    <div class="job-header">
+      <span class="job-title">Software Engineer, Full Stack</span>
+      <span class="job-date">Nov 2017 – Jul 2018</span>
+    </div>
+    <div class="job-company">Yatra Online Pvt Ltd, Hyderabad, India</div>
+    <ul>
+      <li>Designed customized Header Service for corporate merchants using Node.js, Java, Spring, and HAProxy/Nginx routing.</li>
+    </ul>
+  </div>
+
+  <!-- TCS -->
+  <div class="job">
+    <div class="job-header">
+      <span class="job-title">Software Developer</span>
+      <span class="job-date">Aug 2015 – Oct 2017</span>
+    </div>
+    <div class="job-company">Tata Consultancy Services, Hyderabad, India</div>
+    <ul>
+      <li>Developed TCS-Ericsson JCAT framework for testing Ericsson AXE IO embedded systems; built AI-powered web console for test recommendations (Star Performer award).</li>
+      <li>Customized OpenStack console UI for the ATLAS project.</li>
+    </ul>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="section-title">Technical Skills</div>
+  <div class="skills-grid">
+    <span class="label">ML & Inference</span>
+    <span class="value">PyTorch, PyTorch/XLA, JAX, vLLM, NxDI, NKI, PJRT C-API, HLO/StableHLO, NIXL, EFA, Trainium, Inferentia, LLM Serving, KV Cache Optimization, Disaggregated Inference, Graph Compilation, Model Parallelism (TP/PP)</span>
+    <span class="label">Languages</span>
+    <span class="value">Python, C++, Java, Golang, JavaScript/TypeScript</span>
+    <span class="label">AWS Services</span>
+    <span class="value">Lambda, Step Functions, DynamoDB, S3, CloudFormation, CDK, ECR, EKS, SageMaker, Redshift, SNS/SQS, VPC</span>
+    <span class="label">Infrastructure</span>
+    <span class="value">Bazel, Docker, Kubernetes, GitHub Actions, CI/CD Pipelines, Distributed Systems, gRPC/Protobuf</span>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section-title">Education</div>
+  <div class="edu-item">
+    <div class="edu-header">
+      <span class="edu-title">B.Tech in Computer Science and Engineering</span>
+      <span class="edu-date">Jun 2011 – May 2015</span>
+    </div>
+    <div class="edu-school">Jalpaiguri Government Engineering College, Jalpaiguri &nbsp;|&nbsp; CGPA: 8.5/10</div>
+  </div>
+
+  <!-- OPEN SOURCE -->
+  <div class="section-title">Open Source & Community</div>
+  <ul>
+    <li><strong>GitHub:</strong> <a href="https://github.com/rajkthakur" style="color:#0a66c2;">github.com/rajkthakur</a> — Active contributor to aws-neuron org; fork of pytorch/xla. Maintained AWS Neuron sample notebooks.</li>
+    <li><strong>Amazon Bar Raiser:</strong> Certified interviewer ensuring hiring bar across Amazon.</li>
+    <li><strong>AppSec Certified Engineer:</strong> Certified in application security; e.g. performed AppSec review for Amazon Quick Suite LLM-based features.</li>
+    <li><strong>Mentoring:</strong> Cross-org mentoring; hiring and interviewing across multiple teams and companies.</li>
+  </ul>
+
+</div>
+
+</body>
+</html>
