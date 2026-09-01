@@ -102,6 +102,7 @@
         <a href="#about" class="nav-item">About</a>
         <a href="#skills" class="nav-item">Skills</a>
         <a href="#experience" class="nav-item">Experience</a>
+        <a href="/resume.html" class="nav-item">Resume</a>
         <a href="#blog" class="nav-item">Blog</a>
         <a href="#contact" class="nav-item">Contact</a>
     </nav>
@@ -216,10 +217,13 @@
                             </div>
                             <p class="role-description">Leading ML frameworks optimization for AWS Trainium and Inferentia chips, focusing on PyTorch and JAX acceleration</p>
                             <ul class="achievements">
-                                <li>PJRT backend development for AWS Trainium enabling seamless JAX training on custom silicon</li>
+                                <li>Leading the migration of PyTorch on Trainium off PyTorch/XLA onto the native torch.compile path</li>
+                                <li>Built CPU-only compilation for torch.compile — a capability PyTorch does not offer — so models compile without consuming accelerator capacity</li>
+                                <li>Unblocked a large open-weight mixture-of-experts model that could not fit in device memory, restoring accuracy parity with the XLA baseline</li>
+                                <li>Brought up end-to-end native tensor-parallel vLLM serving on Trainium3</li>
+                                <li>PJRT backend development for AWS Trainium enabling JAX training on custom silicon</li>
                                 <li>Optimized PyTorch XLA integration achieving 1.2x faster training performance on Trainium chips</li>
-                                <li>Native PyTorch development</li>
-                                <li>HLO based Graph Optimizations</li>
+                                <li>HLO-based graph optimizations and drift detection tooling</li>
                             </ul>
                             <div class="skills-tags">
                                 <span class="skill-tag">PyTorch</span>
