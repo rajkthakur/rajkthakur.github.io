@@ -211,7 +211,7 @@
   </div>
 
   <div class="summary" style="font-size:10px; color:#444; margin-bottom:6px; text-align:center;">
-10+ years building inference systems, ML accelerator frameworks, and scalable serving platforms. On the AWS Neuron SDK team, leading the migration of PyTorch on Trainium and Inferentia from PyTorch/XLA to native torch.compile — including CPU-only compilation that took compile workloads off the accelerator fleet entirely — and optimizing vLLM and JAX inference performance on AWS custom silicon.
+10+ years building inference systems, ML accelerator frameworks, and scalable serving platforms. On the AWS Neuron SDK team, making Trainium and Inferentia first-class PyTorch devices that run stock torch.compile instead of a forked XLA stack, including CPU-only compilation that took compile workloads off the accelerator fleet entirely. Also optimizing vLLM and JAX inference performance on AWS custom silicon.
   </div>
 
   <!-- EXPERIENCE -->
@@ -225,14 +225,14 @@
     </div>
     <div class="job-company">AWS Neuron (Annapurna ML), Cupertino, CA</div>
 
-    <div class="job-subtitle">Native PyTorch (non-XLA) Inference Path — Technical Lead</div>
+    <div class="job-subtitle">Trainium as a First-Class PyTorch Device — Technical Lead</div>
     <ul>
       <li>Built CPU-only compilation for <code>torch.compile</code> on Trainium — a capability PyTorch does not offer, because a custom device backend must initialize, allocate, and execute on real hardware to compile at all. Models now compile to a deployable NEFF artifact on an ordinary CPU host, so compilation, CI, and artifact builds no longer consume accelerator capacity. Shipped as the public <code>torch_neuronx.compiler</code> API after cross-team review, with a pre-release catch of a numerical divergence that a missing compiler flag would have shipped silently.</li>
-      <li>Set the direction for moving PyTorch on Trainium off PyTorch/XLA, winning unanimous approval from eight senior leaders across the compiler, runtime, container, and Inferentia organizations to retire the legacy XLA-backed package. Made the case on the two questions reviewers cared about: what test coverage the retirement would lose, and how customers on the older release stay supported.</li>
+      <li>Made Trainium run stock PyTorch: models now go through standard <code>torch.compile</code> rather than a forked PyTorch/XLA stack, so customers keep the programming model they already know and the SDK maintains one compile path instead of two. Retired the legacy XLA-backed framework dependency outright, winning unanimous approval from eight senior leaders across the compiler, runtime, container, and Inferentia organizations by answering the two questions they pressed hardest — what test coverage the removal costs, and how customers on the prior release stay supported.</li>
       <li>Unblocked a large open-weight mixture-of-experts model that could not fit in device memory on the native path, restoring accuracy parity with the established XLA baseline at default memory settings. The compiler had been double-counting the key-value cache; the fix needed no change to the model, its kernels, or the allocator.</li>
       <li>Halved key-value cache input memory by disproving a team-wide assumption that PyTorch AOTAutograd forbids caches that share storage — then validating the layout that works.</li>
       <li>Brought up end-to-end native tensor-parallel vLLM serving on Trainium3, resolving five worker integration gaps and proving the native backend can share a process with the lightweight runtime, with results agreeing to 1.5e-7.</li>
-      <li>Own the parity story for the migration: split the program into three parallel workstreams and built the Grafana dashboard that tracks native-versus-XLA correctness and performance across model configurations.</li>
+      <li>Own the bar for shipping it: split the program into three parallel workstreams and built the Grafana dashboard that gates the native path on matching XLA correctness and performance across model configurations.</li>
     </ul>
 
     <div class="job-subtitle">Disaggregated Inference (DI) & Inference Optimization — Technical Lead</div>
