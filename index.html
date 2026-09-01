@@ -215,17 +215,24 @@
                                 <span class="role-duration">Dec 2022 - Present • Calculating...</span>
                                 <span class="location">Cupertino, California, United States</span>
                             </div>
-                            <p class="role-description">Leading ML frameworks optimization for AWS Trainium and Inferentia chips, focusing on PyTorch and JAX acceleration</p>
+                            <p class="role-description">Optimizing large-model inference on AWS Trainium and Inferentia, and building the native PyTorch device path for both</p>
                             <ul class="achievements">
+                                <li>Architected and built disaggregated inference for vLLM on Neuron, splitting prefill and decode across Trainium nodes with device-to-device KV cache transfers to cut LLM serving latency</li>
+                                <li>Designed the runtime batch operations API for KV cache transfers, doubling throughput, and tuned EFA bandwidth utilization for inter-node tensor transfers</li>
+                                <li>Drove disaggregated inference readiness for product launches, including multi-node configurations and GPU+Trainium heterogeneous compute, validated on the EKS production stack</li>
+                                <li>Recovered per-step host time lost under asynchronous execution, and found the real cause of a decode stall on a 64-way expert-parallel deployment after it had been attributed to prefill</li>
+                                <li>Unblocked a large open-weight mixture-of-experts model that could not fit in device memory, restoring accuracy parity with the XLA baseline</li>
                                 <li>Made Trainium run stock PyTorch — models compile through standard torch.compile instead of a forked PyTorch/XLA stack, so customers keep the programming model they already know</li>
                                 <li>Built CPU-only compilation for torch.compile — a capability PyTorch does not offer — so models compile without consuming accelerator capacity</li>
-                                <li>Unblocked a large open-weight mixture-of-experts model that could not fit in device memory, restoring accuracy parity with the XLA baseline</li>
                                 <li>Brought up end-to-end native tensor-parallel vLLM serving on Trainium3</li>
                                 <li>PJRT backend development for AWS Trainium enabling JAX training on custom silicon</li>
                                 <li>Optimized PyTorch XLA integration achieving 1.2x faster training performance on Trainium chips</li>
                                 <li>HLO-based graph optimizations and drift detection tooling</li>
                             </ul>
                             <div class="skills-tags">
+                                <span class="skill-tag">vLLM</span>
+                                <span class="skill-tag">LLM Serving</span>
+                                <span class="skill-tag">KV Cache Optimization</span>
                                 <span class="skill-tag">PyTorch</span>
                                 <span class="skill-tag">JAX</span>
                                 <span class="skill-tag">AWS Trainium</span>

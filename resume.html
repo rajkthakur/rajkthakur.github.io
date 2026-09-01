@@ -211,7 +211,7 @@
   </div>
 
   <div class="summary" style="font-size:10px; color:#444; margin-bottom:6px; text-align:center;">
-10+ years building inference systems, ML accelerator frameworks, and scalable serving platforms. On the AWS Neuron SDK team, making Trainium and Inferentia first-class PyTorch devices that run stock torch.compile instead of a forked XLA stack, including CPU-only compilation that took compile workloads off the accelerator fleet entirely. Also optimizing vLLM and JAX inference performance on AWS custom silicon.
+10+ years building inference systems, ML accelerator frameworks, and scalable serving platforms. On the AWS Neuron SDK team, optimizing large-model inference on Trainium and Inferentia — disaggregated prefill/decode serving in vLLM, KV cache transfer throughput, and decode-path latency at scale. Also making those chips first-class PyTorch devices that run stock torch.compile, including CPU-only compilation that took compile workloads off the accelerator fleet entirely.
   </div>
 
   <!-- EXPERIENCE -->
@@ -225,16 +225,6 @@
     </div>
     <div class="job-company">AWS Neuron (Annapurna ML), Cupertino, CA</div>
 
-    <div class="job-subtitle">Trainium as a First-Class PyTorch Device — Technical Lead</div>
-    <ul>
-      <li>Built CPU-only compilation for <code>torch.compile</code> on Trainium — a capability PyTorch does not offer, because a custom device backend must initialize, allocate, and execute on real hardware to compile at all. Models now compile to a deployable NEFF artifact on an ordinary CPU host, so compilation, CI, and artifact builds no longer consume accelerator capacity. Shipped as the public <code>torch_neuronx.compiler</code> API after cross-team review, with a pre-release catch of a numerical divergence that a missing compiler flag would have shipped silently.</li>
-      <li>Made Trainium run stock PyTorch: models now go through standard <code>torch.compile</code> rather than a forked PyTorch/XLA stack, so customers keep the programming model they already know and the SDK maintains one compile path instead of two. Retired the legacy XLA-backed framework dependency outright, winning unanimous approval from eight senior leaders across the compiler, runtime, container, and Inferentia organizations by answering the two questions they pressed hardest — what test coverage the removal costs, and how customers on the prior release stay supported.</li>
-      <li>Unblocked a large open-weight mixture-of-experts model that could not fit in device memory on the native path, restoring accuracy parity with the established XLA baseline at default memory settings. The compiler had been double-counting the key-value cache; the fix needed no change to the model, its kernels, or the allocator.</li>
-      <li>Halved key-value cache input memory by disproving a team-wide assumption that PyTorch AOTAutograd forbids caches that share storage — then validating the layout that works.</li>
-      <li>Brought up end-to-end native tensor-parallel vLLM serving on Trainium3, resolving five worker integration gaps and proving the native backend can share a process with the lightweight runtime, with results agreeing to 1.5e-7.</li>
-      <li>Own the bar for shipping it: split the program into three parallel workstreams and built the Grafana dashboard that gates the native path on matching XLA correctness and performance across model configurations.</li>
-    </ul>
-
     <div class="job-subtitle">Disaggregated Inference (DI) & Inference Optimization — Technical Lead</div>
     <ul>
       <li>Architected and built disaggregated inference for vLLM on Neuron, enabling split prefill/decode across Trainium nodes using NIXL device-to-device KV cache transfers to minimize LLM serving latency.</li>
@@ -246,6 +236,16 @@
       <li>Evaluated vLLM sleep mode for serverless inference optimization — enabling dynamic weight loading/unloading for cost-efficient serving and RLHF workloads.</li>
       <li>Recovered per-step host time lost under asynchronous execution by tracing the gap to redundant device-to-host copies and DMA descriptor overhead at submit, and specifying the I/O ring and copy-elision fixes.</li>
       <li>Found the real cause of a decode-phase stall on a 64-way expert-parallel deployment — a per-step collective in the data-parallel padding path serializing request churn — after the team had attributed it to prefill and load imbalance.</li>
+    </ul>
+
+    <div class="job-subtitle">Trainium as a First-Class PyTorch Device — Technical Lead</div>
+    <ul>
+      <li>Built CPU-only compilation for <code>torch.compile</code> on Trainium — a capability PyTorch does not offer, because a custom device backend must initialize, allocate, and execute on real hardware to compile at all. Models now compile to a deployable NEFF artifact on an ordinary CPU host, so compilation, CI, and artifact builds no longer consume accelerator capacity. Shipped as the public <code>torch_neuronx.compiler</code> API after cross-team review, with a pre-release catch of a numerical divergence that a missing compiler flag would have shipped silently.</li>
+      <li>Made Trainium run stock PyTorch: models now go through standard <code>torch.compile</code> rather than a forked PyTorch/XLA stack, so customers keep the programming model they already know and the SDK maintains one compile path instead of two. Retired the legacy XLA-backed framework dependency outright, winning unanimous approval from eight senior leaders across the compiler, runtime, container, and Inferentia organizations by answering the two questions they pressed hardest — what test coverage the removal costs, and how customers on the prior release stay supported.</li>
+      <li>Unblocked a large open-weight mixture-of-experts model that could not fit in device memory on the native path, restoring accuracy parity with the established XLA baseline at default memory settings. The compiler had been double-counting the key-value cache; the fix needed no change to the model, its kernels, or the allocator.</li>
+      <li>Halved key-value cache input memory by disproving a team-wide assumption that PyTorch AOTAutograd forbids caches that share storage — then validating the layout that works.</li>
+      <li>Brought up end-to-end native tensor-parallel vLLM serving on Trainium3, resolving five worker integration gaps and proving the native backend can share a process with the lightweight runtime, with results agreeing to 1.5e-7.</li>
+      <li>Own the bar for shipping it: split the program into three parallel workstreams and built the Grafana dashboard that gates the native path on matching XLA correctness and performance across model configurations.</li>
     </ul>
 
     <div class="job-subtitle">Managing PyTorch for Neuron & Inference Optimization</div>
