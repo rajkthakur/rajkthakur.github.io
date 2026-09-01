@@ -32,25 +32,21 @@ class TimeUpdater {
         const awsStart = new Date('2020-06-01');
         const awsTotal = this.calculateDuration(awsStart);
         
-        // Current Role Duration
-        const currentRoleStart = new Date('2024-07-01');
+        // Current Role Duration (AWS Neuron, from Dec 2022)
+        const currentRoleStart = new Date('2022-12-01');
         const currentRoleDuration = this.calculateDuration(currentRoleStart);
-        
-        // AI SDE II Duration
-        const aiSdeStart = new Date('2022-12-01');
-        const aiSdeEnd = new Date('2024-07-01');
-        const aiSdeDuration = this.calculateDuration(aiSdeStart, aiSdeEnd);
-        
+
         // SDE II Duration
         const sdeStart = new Date('2020-06-01');
         const sdeEnd = new Date('2022-12-01');
         const sdeDuration = this.calculateDuration(sdeStart, sdeEnd);
-        
-        // Update DOM elements
+
+        // Update DOM elements. Indices track .role-duration order in the AWS
+        // timeline entry: 0 = current role, 1 = SDE II. Roles below AWS are
+        // static and intentionally not rewritten here.
         this.updateElement('.duration', `${awsTotal} • Full-time`);
         this.updateElement('.role-duration', currentRoleDuration, 0);
-        this.updateElement('.role-duration', aiSdeDuration, 1);
-        this.updateElement('.role-duration', sdeDuration, 2);
+        this.updateElement('.role-duration', sdeDuration, 1);
     }
     
     updateElement(selector, text, index = null) {
