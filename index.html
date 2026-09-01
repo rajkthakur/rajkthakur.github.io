@@ -140,11 +140,11 @@
             </header>
             <div class="card">
                 <p>
-                    I'm a Senior Software Development Engineer at Amazon, specializing in <strong>ML frameworks optimization</strong> and <strong>ML acceleration</strong> on AWS Trainium and Inferentia chips. With 10+ years of experience, I architect high-performance ML systems that enable efficient training and inference at cloud scale.
+                    I'm a Senior Machine Learning Engineer at Amazon. My job is making <strong>large-model inference</strong> fast on AWS Trainium and Inferentia. I have 10+ years of experience building ML systems that serve and train models at cloud scale.
                 </p>
                 <br>
                 <p>
-                    My expertise spans <strong>PyTorch and JAX optimization</strong>, <strong>custom silicon acceleration</strong>, <strong>PJRT runtime development</strong>, and building production-ready ML frameworks. I specialize in optimizing deep learning workloads for <strong>AWS Trainium (training)</strong> and <strong>AWS Inferentia (inference)</strong> custom chips.
+                    Day to day I work on <strong>LLM serving in vLLM</strong>, <strong>KV cache and decode-path optimization</strong>, <strong>PyTorch and JAX on custom silicon</strong>, and the <strong>PJRT runtime</strong>. Most of what I build ends up in the AWS Neuron SDK that customers use on <strong>Trainium</strong> and <strong>Inferentia</strong>.
                 </p>
             </div>
         </section>
@@ -210,24 +210,24 @@
                         </div>
                         
                         <div class="role-item">
-                            <h4>Senior Software Development Engineer</h4>
+                            <h4>Senior Machine Learning Engineer</h4>
                             <div class="role-meta">
                                 <span class="role-duration">Dec 2022 - Present • Calculating...</span>
                                 <span class="location">Cupertino, California, United States</span>
                             </div>
-                            <p class="role-description">Optimizing large-model inference on AWS Trainium and Inferentia, and building the native PyTorch device path for both</p>
+                            <p class="role-description">Making large-model inference fast on AWS Trainium and Inferentia, and building the native PyTorch device path for both</p>
                             <ul class="achievements">
-                                <li>Architected and built disaggregated inference for vLLM on Neuron, splitting prefill and decode across Trainium nodes with device-to-device KV cache transfers to cut LLM serving latency</li>
-                                <li>Designed the runtime batch operations API for KV cache transfers, doubling throughput, and tuned EFA bandwidth utilization for inter-node tensor transfers</li>
-                                <li>Drove disaggregated inference readiness for product launches, including multi-node configurations and GPU+Trainium heterogeneous compute, validated on the EKS production stack</li>
-                                <li>Recovered per-step host time lost under asynchronous execution, and found the real cause of a decode stall on a 64-way expert-parallel deployment after it had been attributed to prefill</li>
-                                <li>Unblocked a large open-weight mixture-of-experts model that could not fit in device memory, restoring accuracy parity with the XLA baseline</li>
-                                <li>Made Trainium run stock PyTorch — models compile through standard torch.compile instead of a forked PyTorch/XLA stack, so customers keep the programming model they already know</li>
-                                <li>Built CPU-only compilation for torch.compile — a capability PyTorch does not offer — so models compile without consuming accelerator capacity</li>
-                                <li>Brought up end-to-end native tensor-parallel vLLM serving on Trainium3</li>
-                                <li>PJRT backend development for AWS Trainium enabling JAX training on custom silicon</li>
-                                <li>Optimized PyTorch XLA integration achieving 1.2x faster training performance on Trainium chips</li>
-                                <li>HLO-based graph optimizations and drift detection tooling</li>
+                                <li>Built disaggregated inference for vLLM on Neuron, so prefill and decode run on separate Trainium nodes with the KV cache moved device to device to cut serving latency</li>
+                                <li>Designed the runtime batch operations API for KV cache transfers, which doubled throughput, and tuned EFA utilization for inter-node tensor transfers</li>
+                                <li>Got disaggregated inference ready for product launches, including multi-node configurations and mixed GPU plus Trainium deployments, validated on the EKS production stack</li>
+                                <li>Won back per-step host time that asynchronous execution was supposed to hide, and found the real cause of a decode stall on a 64-way expert-parallel deployment after it had been blamed on prefill</li>
+                                <li>Unblocked a large mixture-of-experts model that would not fit in device memory, and brought accuracy back in line with the XLA baseline</li>
+                                <li>Made Trainium run stock PyTorch. Models compile through standard torch.compile instead of a forked PyTorch/XLA stack, so customers keep the programming model they already know</li>
+                                <li>Built CPU-only compilation for torch.compile, which PyTorch itself does not support, so models compile without taking accelerator capacity</li>
+                                <li>Brought up native tensor-parallel vLLM serving end to end on Trainium3</li>
+                                <li>Built the PJRT backend for AWS Trainium that lets JAX run on custom silicon</li>
+                                <li>Optimized the PyTorch XLA integration for 1.2x faster training on Trainium</li>
+                                <li>Built HLO-based graph optimizations and drift detection tooling</li>
                             </ul>
                             <div class="skills-tags">
                                 <span class="skill-tag">vLLM</span>
@@ -248,10 +248,10 @@
                             </div>
                             <p class="role-description">AWS Billing platform engineering and OpenSearch distributed systems</p>
                             <ul class="achievements">
-                                <li>Built Monetization Authority from scratch — a Step Functions workflow engine automating enterprise billing document generation across thousands of payers, driving $300M in free cash flow improvements</li>
+                                <li>Built Monetization Authority from scratch, a Step Functions workflow engine that automates enterprise billing document generation across thousands of payers. It drove $300M in free cash flow improvements</li>
                                 <li>Designed a transfer billing system that simplified billing for third-party sellers on AWS and improved third-party account security posture, estimated to add $1.2B in annual revenue by 2027</li>
-                                <li>Built a payer classification system and automated payer mapping, contributing $100M in additional free cash flow recovery</li>
-                                <li>Led JDK 17 migration across 8+ packages and cross-functional teams of 6+ developers</li>
+                                <li>Built a payer classification system and automated payer mapping, which recovered another $100M in free cash flow</li>
+                                <li>Led the JDK 17 migration across 8+ packages and cross-functional teams of 6+ developers</li>
                                 <li>Containerized AWS OpenSearch data plane components and built an automated node diagnostic and self-healing framework that cut customer RCA tickets by 30%</li>
                             </ul>
                             <div class="skills-tags">
@@ -408,7 +408,7 @@
                             <time class="blog-date">Jan 23, 2023</time>
                             <span class="blog-category">Software Engineering</span>
                         </div>
-                        <h3>DI Frameworks — Spring, Guice and Dagger</h3>
+                        <h3>DI Frameworks: Spring, Guice and Dagger</h3>
                         <p>Comprehensive comparison of dependency injection frameworks for large-scale applications.</p>
                         <a href="https://medium.com/@rajthakur_78149/di-frameworks-spring-guice-and-dagger-part-923762684ebf" target="_blank" rel="noopener noreferrer" class="blog-link">
                             Read Article →
