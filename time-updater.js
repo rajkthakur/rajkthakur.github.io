@@ -57,13 +57,12 @@ class TimeUpdater {
         const elements = document.querySelectorAll(selector);
         if (elements.length > 0) {
             if (index !== null && elements[index]) {
+                // Replace only the duration that follows the bullet, and leave the
+                // date range untouched. Appending " - Present" here marked completed
+                // roles as ongoing and doubled it on the current role.
                 const element = elements[index];
-                const parts = element.textContent.split(' • ');
-                if (parts.length > 1) {
-                    element.textContent = `${parts[0]} - Present • ${text}`;
-                } else {
-                    element.textContent = element.textContent.replace(/\d+\s+yr.*?\s+\d+\s+mos?|\d+\s+mos?/, text);
-                }
+                const dateRange = element.textContent.split('•')[0].trim();
+                element.textContent = `${dateRange} • ${text}`;
             } else {
                 elements[0].textContent = text;
             }
