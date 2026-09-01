@@ -1,4 +1,4 @@
-const CACHE_NAME = 'raj-thakur-portfolio-v2';
+const CACHE_NAME = 'raj-thakur-portfolio-v3';
 const urlsToCache = [
     '/',
     '/index.html',
@@ -18,14 +18,20 @@ self.addEventListener('install', (event) => {
     );
 });
 
-// Fetch event - network-first for pages, cache-first for static assets.
-// Pages must be network-first so content edits are visible immediately;
-// a cache-first HTML strategy serves stale pages until the cache name changes.
+// Fetch event - network-first for anything we author (pages, our own CSS/JS),
+// cache-first only for immutable third-party assets such as web fonts.
+//
+// A cache-first strategy on our own files serves stale content after every
+// deploy until CACHE_NAME changes, which has hidden both page edits and a
+// script fix. Network-first keeps the cache purely as an offline fallback.
 self.addEventListener('fetch', (event) => {
-    const accept = event.request.headers.get('accept') || '';
-    const isPage = event.request.mode === 'navigate' || accept.includes('text/html');
+    if (event.request.method !== 'GET') {
+        return;
+    }
 
-    if (isPage) {
+    const isSameOrigin = new URL(event.request.url).origin === self.location.origin;
+
+    if (isSameOrigin) {
         event.respondWith(
             fetch(event.request)
                 .then((response) => {

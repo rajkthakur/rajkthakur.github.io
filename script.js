@@ -60,10 +60,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Smooth scrolling for navigation links
     navItems.forEach(navItem => {
         navItem.addEventListener('click', function(e) {
+            const href = this.getAttribute('href') || '';
+
+            // Only intercept in-page anchors. Calling preventDefault() on a real
+            // page link (such as /resume.html) cancels the navigation and leaves
+            // the click doing nothing at all.
+            if (!href.startsWith('#')) {
+                return;
+            }
+
             e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
+            const targetId = href.substring(1);
             const targetSection = document.getElementById(targetId);
-            
+
             if (targetSection) {
                 const offsetTop = targetSection.offsetTop - 100;
                 window.scrollTo({
