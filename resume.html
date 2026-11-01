@@ -5,12 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Raj Kumar Thakur | Resume</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-variant-ligatures: none;
+    font-kerning: none;
+    text-rendering: optimizeSpeed;
     color: #1a1a1a;
     line-height: 1.5;
     background: #f0f0f0;
@@ -27,7 +29,7 @@
 
   @media print {
     body { background: white; }
-    .page { box-shadow: none; margin: 0; padding: 0.4in 0.5in; width: 100%; }
+    .page { box-shadow: none; margin: 0; padding: 0.3in 0.5in; width: 100%; min-height: 0; }
     .no-print { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; }
     .print-btn { display: none !important; }
   }
@@ -39,8 +41,8 @@
 
   .header {
     text-align: center;
-    margin-bottom: 14px;
-    padding-bottom: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
     border-bottom: 2px solid #0a66c2;
   }
 
@@ -48,7 +50,7 @@
     font-size: 24px;
     font-weight: 700;
     color: #0a66c2;
-    letter-spacing: 0.5px;
+    letter-spacing: 0;
     margin-bottom: 4px;
   }
 
@@ -74,15 +76,15 @@
     font-weight: 700;
     color: #0a66c2;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 0;
     border-bottom: 1px solid #d0d0d0;
     padding-bottom: 3px;
-    margin-top: 14px;
-    margin-bottom: 8px;
+    margin-top: 8px;
+    margin-bottom: 5px;
   }
 
   .job {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 
   .job-header {
@@ -127,8 +129,8 @@
   li {
     font-size: 10px;
     color: #333;
-    margin-bottom: 2px;
-    line-height: 1.45;
+    margin-bottom: 1px;
+    line-height: 1.4;
   }
 
   .skills-grid {
@@ -201,17 +203,18 @@
 <div class="page">
   <div class="header">
     <h1>Raj Kumar Thakur</h1>
-    <div class="tagline">Senior Machine Learning Engineer &nbsp;|&nbsp; ML Inference Optimization & Frameworks</div>
+    <div class="tagline">LLM inference and ML systems on AWS Trainium</div>
     <div class="contact">
       Cupertino, CA &nbsp;|&nbsp;
       <a href="mailto:rajanand.thakur@gmail.com">rajanand.thakur@gmail.com</a> &nbsp;|&nbsp;
+      <a href="https://www.linkedin.com/in/raj-thakur-39756838">linkedin.com/in/raj-thakur-39756838</a> &nbsp;|&nbsp;
       <a href="https://rajthakur.dev">rajthakur.dev</a> &nbsp;|&nbsp;
       <a href="https://github.com/rajkthakur">github.com/rajkthakur</a>
     </div>
   </div>
 
   <div class="summary" style="font-size:10px; color:#444; margin-bottom:6px; text-align:center;">
-10+ years building inference systems, ML accelerator frameworks, and large-scale serving platforms. I work on the AWS Neuron SDK team, where my job is making large-model inference fast on Trainium and Inferentia. That means disaggregated prefill/decode serving in vLLM, KV cache transfer throughput, and decode latency on production deployments. I also work on making these chips run stock PyTorch, including a CPU-only compile path that moved compilation off the accelerator fleet.
+Eleven years in software, the last four on LLM inference at AWS Neuron. I designed and built the disaggregated serving stack for vLLM on Trainium, started Neuron's move from PyTorch/XLA to native torch.compile, and now spend most of my time making models run faster and more accurately on Trainium.
   </div>
 
   <!-- EXPERIENCE -->
@@ -223,142 +226,94 @@
       <span class="job-title">Senior Machine Learning Engineer</span>
       <span class="job-date">Dec 2022 – Present</span>
     </div>
-    <div class="job-company">AWS Neuron (Annapurna ML), Cupertino, CA</div>
+    <div class="job-company">Amazon Web Services, AWS Neuron (Annapurna ML), Cupertino, CA</div>
 
-    <div class="job-subtitle">Disaggregated Inference (DI) and Inference Optimization (Technical Lead)</div>
+    <div class="job-subtitle">Disaggregated serving</div>
     <ul>
-      <li>Built disaggregated inference for vLLM on Neuron. Prefill and decode now run on separate Trainium nodes, with the KV cache moved device to device over NIXL to keep serving latency down.</li>
-      <li>Designed the runtime batch operations API for KV cache transfers, which doubled transfer throughput. Tuned EFA utilization to 20 of 25 Gbps on Trn2 for inter-node tensor transfers.</li>
-      <li>Led DI bring-up on next-generation Trainium. EFA-to-Neuron device mapping had changed, so multi-node inference needed runtime-level fixes first. Also profiled and tuned NIXL for small transfers.</li>
-      <li>Got DI ready for product launches, including xPyD multi-node configurations and mixed GPU plus Trainium deployments, and validated it on the EKS production stack.</li>
-      <li>Moved the NeuronX Distributed Inference (NxDI) backend from single-program, multiple-data execution to multiple-program, multiple-data once native PyTorch support landed. That opens up distributed topologies the old model could not express.</li>
-      <li>Bringing up a large open-weight model on next-generation Trainium, including the framework and runtime integration work it needs.</li>
-      <li>Evaluated vLLM sleep mode for serverless inference, where weights load and unload on demand to cut idle cost for serving and RLHF workloads.</li>
-      <li>Won back per-step host time that asynchronous execution was supposed to hide. The gap came from redundant device-to-host copies plus DMA descriptor cost at submit, and I specified the I/O ring and copy-elision fixes.</li>
-      <li>Found the real cause of a decode stall on a 64-way expert-parallel deployment. The team had put it down to prefill and load imbalance. It was a per-step collective in the data-parallel padding path, serializing request churn.</li>
+      <li>Designed and built disaggregated inference for vLLM on Trainium. Prefill and decode run on separate nodes, the KV cache moves device to device with NIXL over EFA, and a batched transfer API I added to the runtime doubled KV transfer throughput. It runs multi-node xPyD on EKS, including mixed GPU and Trainium.</li>
+      <li>Found why disaggregated decode stalled between steps: new input addresses forced the runtime to rebuild its DMA rings on every step.</li>
+      <li>Built a multi-agent C++ code-review workflow on Claude Code that has caught several bugs in the team's runtime changes, including a concurrency race in async KV-offload code.</li>
     </ul>
 
-    <div class="job-subtitle">Trainium as a First-Class PyTorch Device (Technical Lead)</div>
+    <div class="job-subtitle">Performance and model bring-up</div>
     <ul>
-      <li>Built CPU-only compilation for <code>torch.compile</code> on Trainium. PyTorch has no such path, because a custom device backend has to initialize, allocate, and execute on real hardware before it can compile anything. Models now compile to a deployable NEFF artifact on an ordinary CPU host, so compilation, CI, and artifact builds stop taking accelerator capacity. It shipped as the public <code>torch_neuronx.compiler</code> API after cross-team review, and I caught a numerical divergence before release that a missing compiler flag would otherwise have hidden.</li>
-      <li>Made Trainium run stock PyTorch. Models go through standard <code>torch.compile</code> instead of a forked PyTorch/XLA stack, so customers keep the programming model they already know and the SDK maintains one compile path rather than two. Removing the legacy XLA framework dependency took sign-off from eight senior leaders across the compiler, runtime, container, and Inferentia teams. The two questions they pushed hardest on were what test coverage we would lose and how customers on the prior release stay supported.</li>
-      <li>Unblocked a large mixture-of-experts model that would not fit in device memory on the native path, and brought accuracy back in line with the XLA baseline at default memory settings. The compiler was counting the key-value cache twice. The fix touched no model code, no kernels, and no allocator.</li>
-      <li>Halved key-value cache input memory. The team had assumed PyTorch AOTAutograd forbids caches that share storage. It does not, and I validated the layout that works.</li>
-      <li>Brought up native tensor-parallel vLLM serving end to end on Trainium3. That took fixing five worker integration gaps and showing the native backend can share a process with the lightweight runtime, with outputs matching to 1.5e-7.</li>
-      <li>Own the release bar for this work. Split the program into three parallel workstreams and built the Grafana dashboard that holds the native path to XLA correctness and performance across model configurations.</li>
+      <li>Traced a decode-latency gap between native PyTorch and XLA on GPT-OSS-120B to two compiler inputs, one of them a small all-gather mis-tagged as FSDP. Correcting both brought native to parity in testing.</li>
+      <li>Explained a decode stall at 64-way expert parallelism. Request churn was backing up behind a CPU all-reduce that runs on every step.</li>
+      <li>Worked with the author of the multi-LoRA NKI kernel to speed up multi-LoRA decode. Profiling showed about half the HBM reads were repeat loads, and the static-slot decode path I designed shipped in the kernel.</li>
+      <li>Found the trigger for a GPT-OSS-20B accuracy regression (one compiler lowering for large KV writes) by replaying captured inputs across ranks, and validated the workaround.</li>
+      <li>Showed that a set of compiler accuracy bugs were the same kind of failure: no optimization level was safe for every graph.</li>
+      <li>Brought up GPT-OSS on native PyTorch for Neuron, fixing integration bugs until BF16 passed GSM8K on Trainium2 and Trainium3. Tracked an out-of-memory failure to missing KV aliases and fixed the index bug that dropped them, bringing accuracy in line with XLA.</li>
     </ul>
 
-    <div class="job-subtitle">Managing PyTorch for Neuron and Inference Optimization</div>
+    <div class="job-subtitle">Native PyTorch for Neuron</div>
     <ul>
-      <li>Owned PyTorch releases end to end across the Neuron stack, which means builds, dependency coordination, and compatibility testing across 10+ packages for every new PyTorch version.</li>
-      <li>Ran the first native (non-XLA) PyTorch release for Neuron, coordinating the torch-neuronx, NxDI, eager mode, and torch.compile paths.</li>
-      <li>Turned on parallel compilation for inference workloads to cut model compile time, and added huge page support to the runtime benchmarks.</li>
-      <li>Chased down inference performance regressions, memory faults, and framework compatibility breaks across PyTorch and XLA releases to keep production stable.</li>
-    </ul>
-
-    <div class="job-subtitle">PJRT / JAX Architecture, HLO Optimization Tooling, and vLLM</div>
-    <ul>
-      <li>Split the PJRT C-API into three modules of 6K to 9.5K lines each, which cut build times and made the pieces testable on their own. Upgraded the C-API from 0.68 to 0.73 for JAX v0.7.0 inference support.</li>
-      <li>Built an HLO graph drift detection tool from scratch. It diffs HLO IR graphs, including NKI custom kernel ops, and catches compiler-level inference regressions across framework upgrades.</li>
-      <li>Contributed to the vLLM Neuron plugin and NxDI: EFA device mapping fixes, NIXL cleanup, multi-node MPI communication for distributed inference, and FX graph optimization passes.</li>
-      <li>Ran the NKI kernel compatibility analysis for the Trn2 to Trn3 move, so custom kernels carry over without rewrites.</li>
+      <li>Started the native PyTorch project for Neuron inference: torch.compile lowered through torch-mlir instead of PyTorch/XLA. Wrote the proposal to adopt it across the inference stack, then the proposal to retire PyTorch/XLA-based torch-neuronx in Neuron 2.32, which all 8 required approvers signed off.</li>
+      <li>Built device-free torch.compile for Neuron. I wrote and merged the compiler API (FX to StableHLO to NEFF) and a compile-only mode, so inference models compile on plain CPU hosts with no Trainium attached.</li>
+      <li>Got the first vLLM TP8 server running on native PyTorch for Neuron, then dogfooded 6+ state-of-the-art models on it, including GPT-OSS and Qwen3-VL.</li>
+      <li>Earlier: owned PyTorch upgrades across 10+ Neuron packages, moved the PJRT plugin to JAX 0.7.0, and built an HLO diff tool for compiler regressions.</li>
     </ul>
   </div>
 
-  <!-- AWS SDE II: Billing + OpenSearch -->
-  <div class="job">
+  <!-- AWS SDE II -->
+  <div class="job" style="break-inside: avoid;">
     <div class="job-header">
       <span class="job-title">Software Development Engineer II</span>
       <span class="job-date">Jun 2020 – Nov 2022</span>
     </div>
-    <div class="job-company">Amazon Web Services, Bangalore, India</div>
-
-    <div class="job-subtitle">AWS Billing (CuBE and Monetization Authority)</div>
+    <div class="job-company">Amazon Web Services (Billing, OpenSearch), Bangalore, India</div>
     <ul>
-      <li>Built Monetization Authority (MTZA) from scratch, a Step Functions workflow engine that automates RFP generation and delivery for enterprise billing across thousands of payers. It drove $300M in free cash flow improvements.</li>
-      <li>Built a payer classification system on BIDW Redshift queries and automated SPP payer mapping with ops-managed configuration, which recovered another $100M in free cash flow.</li>
-      <li>Designed a transfer billing system that simplified billing for third-party sellers on AWS and improved the security posture of third-party accounts. Estimated to add $1.2B in annual revenue by 2027.</li>
-      <li>Built CuBE payer mapping APIs (Smithy/Lambda), distributed map scaling for Step Functions, RFP deduplication, and credits beginning balance pipelines.</li>
-      <li>Led the JDK 17 migration across 8+ packages, ran cross-functional teams of 6+ developers, and wrote the PRFAQs and architecture docs.</li>
-    </ul>
-
-    <div class="job-subtitle">AWS OpenSearch and CloudSearch</div>
-    <ul>
-      <li>Containerized data plane components of AWS OpenSearch using S3, ECR, Lambda, and CodeBuild.</li>
-      <li>Built an automated node diagnostic and self-healing framework that cut customer RCA tickets by 30%.</li>
-      <li>Designed Bastion infrastructure on VPC, Elastic IPs, and NAT gateways. Built the Safe Data Plane Deployment Service.</li>
-      <li>Root-caused high-impact customer cluster anomalies and drove LSE and outage scenarios to closure.</li>
+      <li>Built a Step Functions service that generates and delivers billing documents for thousands of enterprise payers, which drove $300M in free-cash-flow improvements. Also built payer classification and mapping, which contributed to another $100M.</li>
+      <li>Built a self-healing framework for OpenSearch nodes that cut customer root-cause tickets by 30%.</li>
     </ul>
   </div>
 
   <!-- Grab -->
-  <div class="job">
+  <div class="job" style="break-inside: avoid;">
     <div class="job-header">
       <span class="job-title">Senior Software Engineer, Backend</span>
       <span class="job-date">Jul 2018 – Jun 2020</span>
     </div>
     <div class="job-company">Grab, Bangalore, India</div>
     <ul>
-      <li>Rebuilt the Settlement Platform from a worker-based design to an event-driven one on AWS Lambda, which made merchant settlement 60% faster.</li>
-      <li>Designed the core post-payment processing unit for payment gateways and international merchants in Golang.</li>
+      <li>Rebuilt merchant settlement as an event-driven system on AWS Lambda (60% performance improvement). Designed the post-payment service in Go.</li>
     </ul>
   </div>
 
-  <!-- Yatra -->
-  <div class="job">
+  <!-- Earlier roles -->
+  <div class="job" style="break-inside: avoid;">
     <div class="job-header">
-      <span class="job-title">Software Engineer, Full Stack</span>
-      <span class="job-date">Nov 2017 – Jul 2018</span>
+      <span class="job-title">Software Engineer, Yatra Online; Software Developer, Tata Consultancy Services</span>
+      <span class="job-date">Aug 2015 – Jul 2018</span>
     </div>
-    <div class="job-company">Yatra Online Pvt Ltd, Hyderabad, India</div>
-    <ul>
-      <li>Designed customized Header Service for corporate merchants using Node.js, Java, Spring, and HAProxy/Nginx routing.</li>
-    </ul>
-  </div>
-
-  <!-- TCS -->
-  <div class="job">
-    <div class="job-header">
-      <span class="job-title">Software Developer</span>
-      <span class="job-date">Aug 2015 – Oct 2017</span>
-    </div>
-    <div class="job-company">Tata Consultancy Services, Hyderabad, India</div>
-    <ul>
-      <li>Built the TCS-Ericsson JCAT framework for testing Ericsson AXE IO embedded systems, plus a web console that recommended tests to run (Star Performer award).</li>
-      <li>Customized the OpenStack console UI for the ATLAS project.</li>
-    </ul>
   </div>
 
   <!-- SKILLS -->
   <div class="section-title">Technical Skills</div>
   <div class="skills-grid">
-    <span class="label">ML & Inference</span>
-    <span class="value">PyTorch, torch.compile / TorchDynamo / AOTAutograd / FX, PyTorch/XLA, JAX, vLLM, NxDI, NKI, PJRT C-API, HLO/StableHLO, NEFF, NIXL, EFA, Trainium, Inferentia, LLM Serving, KV Cache Optimization, Disaggregated Inference, Expert/Data/Tensor Parallelism, Graph Compilation, Accelerator Profiling</span>
-    <span class="label">Languages</span>
-    <span class="value">Python, C++, Java, Golang, JavaScript/TypeScript</span>
-    <span class="label">AWS Services</span>
-    <span class="value">Lambda, Step Functions, DynamoDB, S3, CloudFormation, CDK, ECR, EKS, SageMaker, Redshift, SNS/SQS, VPC</span>
-    <span class="label">Infrastructure</span>
-    <span class="value">Bazel, Docker, Kubernetes, GitHub Actions, CI/CD Pipelines, Distributed Systems, gRPC/Protobuf</span>
+    <span class="label">LLM inference</span>
+    <span class="value">vLLM, disaggregated prefill/decode, NIXL, EFA, tensor/data/expert parallelism, MoE, multi-LoRA, Trainium2/3</span>
+    <span class="label">Compilers &amp; runtimes</span>
+    <span class="value">torch.compile, Dynamo, AOTAutograd, FX, StableHLO, PJRT, Neuron compiler and runtime, NKI</span>
+    <span class="label">Debugging &amp; perf</span>
+    <span class="value">py-spy, gdb, system traces, roofline analysis, A/B benchmarking, accuracy debugging</span>
+    <span class="label">Languages &amp; tools</span>
+    <span class="value">Python, C++, Go, Java, Docker, Kubernetes (EKS), Bazel</span>
   </div>
 
   <!-- EDUCATION -->
   <div class="section-title">Education</div>
   <div class="edu-item">
     <div class="edu-header">
-      <span class="edu-title">B.Tech in Computer Science and Engineering</span>
-      <span class="edu-date">Jun 2011 – May 2015</span>
+      <span class="edu-title">B.Tech, Computer Science and Engineering, Jalpaiguri Government Engineering College (CGPA 8.5/10)</span>
+      <span class="edu-date">2015</span>
     </div>
-    <div class="edu-school">Jalpaiguri Government Engineering College, Jalpaiguri &nbsp;|&nbsp; CGPA: 8.5/10</div>
   </div>
 
-  <!-- OPEN SOURCE -->
-  <div class="section-title">Open Source and Community</div>
+  <!-- TALKS & COMMUNITY -->
+  <div class="section-title">Talks &amp; Community</div>
   <ul>
-    <li><strong>GitHub:</strong> <a href="https://github.com/rajkthakur" style="color:#0a66c2;">github.com/rajkthakur</a>. Contributor to the aws-neuron org and to a fork of pytorch/xla. Maintained the AWS Neuron sample notebooks.</li>
-    <li><strong>Amazon Bar Raiser:</strong> Certified interviewer holding the hiring bar across Amazon.</li>
-    <li><strong>AppSec Certified Engineer:</strong> Certified in application security. Ran the AppSec review for the LLM features in Amazon Quick Suite.</li>
-    <li><strong>Mentoring:</strong> Mentor across orgs, and interview for multiple teams and companies.</li>
+    <li>Presenter, PyTorch Conference North America 2026: <a href="https://events.linuxfoundation.org/pytorch-conference-north-america/program/schedule-posters/?id=1294948" style="color:#0a66c2;">“Bringing High-Performance Inference Serving to Trainium with an Out-of-Tree vLLM Plugin”</a></li>
+    <li>Amazon Bar Raiser (certified 2026), 100+ interviews. Mentor engineers across orgs.</li>
   </ul>
 
 </div>
