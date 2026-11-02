@@ -214,7 +214,7 @@
   </div>
 
   <div class="summary" style="font-size:10px; color:#444; margin-bottom:6px; text-align:center;">
-Eleven years in software, the last four on LLM inference at AWS Neuron. I designed and built the disaggregated serving stack for vLLM on Trainium, started Neuron's move from PyTorch/XLA to native torch.compile, and now spend most of my time making models run faster and more accurately on Trainium.
+Eleven years in software, the last four in AI/ML. I designed and built the disaggregated serving stack for vLLM on Trainium, started Neuron's move from PyTorch/XLA to native torch.compile, and now spend most of my time making models run faster and more accurately on Trainium.
   </div>
 
   <!-- EXPERIENCE -->
@@ -230,24 +230,22 @@ Eleven years in software, the last four on LLM inference at AWS Neuron. I design
 
     <div class="job-subtitle">Disaggregated serving</div>
     <ul>
-      <li>Designed and built disaggregated inference for vLLM on Trainium. Prefill and decode run on separate nodes, the KV cache moves device to device with NIXL over EFA, and a batched transfer API I added to the runtime doubled KV transfer throughput. It runs multi-node xPyD on EKS, including mixed GPU and Trainium.</li>
-      <li>Found why disaggregated decode stalled between steps: new input addresses forced the runtime to rebuild its DMA rings on every step.</li>
-      <li>Built a multi-agent C++ code-review workflow on Claude Code that has caught several bugs in the team's runtime changes, including a concurrency race in async KV-offload code.</li>
+      <li>Designed and built disaggregated inference for vLLM on Trainium. Prefill and decode run on separate nodes, the KV cache moves device to device with NIXL over EFA, and a batched runtime transfer API I added doubled KV throughput. It runs multi-node xPyD on EKS, including mixed GPU and Trainium.</li>
+      <li>Led the work that removed the async gap between decode steps in disaggregated serving. The runtime was rebuilding DMA rings every step because inputs kept landing at new addresses.</li>
+      <li>Built a multi-agent C++ code-review workflow on Claude Code that catches bugs in the team's runtime changes, including a concurrency race in async KV-offload code.</li>
     </ul>
 
     <div class="job-subtitle">Performance and model bring-up</div>
     <ul>
-      <li>Traced a decode-latency gap between native PyTorch and XLA on GPT-OSS-120B to two compiler inputs, one of them a small all-gather mis-tagged as FSDP. Correcting both brought native to parity in testing.</li>
-      <li>Explained a decode stall at 64-way expert parallelism. Request churn was backing up behind a CPU all-reduce that runs on every step.</li>
-      <li>Worked with the author of the multi-LoRA NKI kernel to speed up multi-LoRA decode. Profiling showed about half the HBM reads were repeat loads, and the static-slot decode path I designed shipped in the kernel.</li>
-      <li>Found the trigger for a GPT-OSS-20B accuracy regression (one compiler lowering for large KV writes) by replaying captured inputs across ranks, and validated the workaround.</li>
-      <li>Showed that a set of compiler accuracy bugs were the same kind of failure: no optimization level was safe for every graph.</li>
+      <li>Brought GPT-OSS-120B decode on native PyTorch to parity with XLA by fixing two compiler inputs, one of them a small all-gather mis-tagged as FSDP.</li>
+      <li>Slow multi-LoRA was keeping NxDI customers from moving to vLLM Neuron. With the kernel's author, I designed the static-slot decode path for the NKI LoRA kernel, and vLLM Neuron then beat NxDI on multi-LoRA decode latency, which let us deprecate NxDI.</li>
+      <li>Cleared a GPT-OSS-20B accuracy regression by isolating it to one compiler lowering, and validated the workaround.</li>
       <li>Brought up GPT-OSS on native PyTorch for Neuron, fixing integration bugs until BF16 passed GSM8K on Trainium2 and Trainium3. Tracked an out-of-memory failure to missing KV aliases and fixed the index bug that dropped them, bringing accuracy in line with XLA.</li>
     </ul>
 
     <div class="job-subtitle">Native PyTorch for Neuron</div>
     <ul>
-      <li>Started the native PyTorch project for Neuron inference: torch.compile lowered through torch-mlir instead of PyTorch/XLA. Wrote the proposal to adopt it across the inference stack, then the proposal to retire PyTorch/XLA-based torch-neuronx in Neuron 2.32, which all 8 required approvers signed off.</li>
+      <li>Started the native PyTorch project for Neuron inference (torch.compile lowered through torch-mlir instead of PyTorch/XLA). I proposed the native inference stack ahead of PyTorch Conference to put TorchNeuron and its ecosystem on stage there running natively, then wrote the proposal to retire PyTorch/XLA-based torch-neuronx in Neuron 2.32. All 8 required approvers signed off.</li>
       <li>Built device-free torch.compile for Neuron. I wrote and merged the compiler API (FX to StableHLO to NEFF) and a compile-only mode, so inference models compile on plain CPU hosts with no Trainium attached.</li>
       <li>Got the first vLLM TP8 server running on native PyTorch for Neuron, then dogfooded 6+ state-of-the-art models on it, including GPT-OSS and Qwen3-VL.</li>
       <li>Earlier: owned PyTorch upgrades across 10+ Neuron packages, moved the PJRT plugin to JAX 0.7.0, and built an HLO diff tool for compiler regressions.</li>

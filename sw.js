@@ -1,4 +1,4 @@
-const CACHE_NAME = 'raj-thakur-portfolio-v5';
+const CACHE_NAME = 'raj-thakur-portfolio-v6';
 const urlsToCache = [
     '/',
     '/index.html',
