@@ -188,6 +188,20 @@
   }
 
   .print-btn:hover { background: #084e96; }
+  a.print-btn { text-decoration: none; width: fit-content; text-align: center; }
+
+  @media screen and (max-width: 700px) {
+    body { background: white; }
+    .page { width: 100%; min-height: 0; padding: 16px; box-shadow: none; }
+    .job-header, .edu-header { flex-direction: column; align-items: flex-start; }
+    .skills-grid { grid-template-columns: 1fr; gap: 2px; }
+    .skills-grid .label { margin-top: 6px; }
+    .header .contact { line-height: 1.8; }
+    li { font-size: 13px; }
+    .summary { font-size: 13px !important; }
+    .job-title { font-size: 14px; }
+    .job-company, .job-subtitle, .job-date, .edu-school, .skills-grid { font-size: 12px; }
+  }
 
   li code {
     font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
@@ -198,7 +212,7 @@
 </head>
 <body>
 
-<button class="print-btn no-print" onclick="window.print()">📄 Save as PDF / Print</button>
+<a class="print-btn no-print" href="/Raj_Kumar_Thakur_Resume.pdf" download="Raj_Kumar_Thakur_Resume.pdf">📄 Download PDF</a>
 
 <div class="page">
   <div class="header">
